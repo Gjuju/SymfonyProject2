@@ -8,7 +8,7 @@
 <div class="example-wrapper">
     <ul>
     {% for produit in produits %}
-        <li>{{produit.nom}}</li>
+        <li>{{produit}} : {{produit.categorie}} - {{produit.nom}} - {{produit.description}} - {{produit.prix}}€ - {{produit.stock}} - {{produit.photo}}</li>
     {% endfor %}
     </ul>
 </div>
