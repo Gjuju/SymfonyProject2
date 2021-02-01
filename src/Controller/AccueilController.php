@@ -12,8 +12,9 @@ class AccueilController extends AbstractController
     /**
      * @Route("/", name="accueil")
      */
-    public function index(ProduitRepository $produitRepository): Response
+    public function index( ProduitRepository $produitRepository): Response
     {
+        
         $produits = $produitRepository->findAll();
 
         return $this->render('accueil/index.html.twig', [
