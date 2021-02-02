@@ -1,15 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AccueilController!{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
-
-
-<div class="example-wrapper">
-    <ul>
+    <div class="container d-flex justify-content-center mt-50 mb-50">
+        <div class="row">
     {% for produit in produits %}
+
+        <div class="col-md-4 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-img-actions"> <img src="{{produit.photo}}" class="card-img img-fluid" alt=""> </div>
+                </div>
+                <div class="card-body bg-light text-center">
+                    <div class="mb-2">
+                        <h6 class="font-weight-semibold mb-2"> <a href="#" class="text-default mb-2" data-abc="true">{{produit.nom}}</a> </h6> <a href="#" class="text-muted" data-abc="true"> {{produit.description}}</a>
+                    </div>
+                    <h3 class="mb-0 font-weight-semibold"> {{produit.prix}}€</h3>
+                   <button type="button" class="btn btn-warning bg-cart"><i class="fa fa-cart-plus mr-2"></i> Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+        
+    {# <ul>
         <li>{{produit}} : {{produit.categorie}} - {{produit.nom}} - {{produit.description}} - {{produit.prix}}€ - {{produit.stock}} - {{produit.photo}}</li>
+       </ul> #}
     {% endfor %}
-    </ul>
-</div>
+    </div>
+    </div>
 {% endblock %}
