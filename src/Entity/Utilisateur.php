@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     /**
      * @ORM\Id
@@ -18,126 +19,190 @@ class Utilisateur
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $nom;
+    private $username;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="json")
      */
-    private $prenom;
+    private $roles = [];
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string The hashed password
+     * @ORM\Column(type="string")
      */
-    private $adresse;
+    private $password;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $telephone;
+    private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $email;
+    private $lastName;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $date_naissance;
+    private $address;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $mot_de_passe;
+    private $phone_number;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $birth_date;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
     {
-        return $this->nom;
+        return (string) $this->username;
     }
 
-    public function setNom(string $nom): self
+    public function setUsername(string $username): self
     {
-        $this->nom = $nom;
+        $this->username = $username;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
     {
-        return $this->prenom;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
     }
 
-    public function setPrenom(string $prenom): self
+    public function setRoles(array $roles): self
     {
-        $this->prenom = $prenom;
+        $this->roles = $roles;
 
         return $this;
     }
 
-    public function getAdresse(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
     {
-        return $this->adresse;
+        return (string) $this->password;
     }
 
-    public function setAdresse(string $adresse): self
+    public function setPassword(string $password): self
     {
-        $this->adresse = $adresse;
+        $this->password = $password;
 
         return $this;
     }
 
-    public function getTelephone(): ?string
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
     {
-        return $this->telephone;
+        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
-    public function setTelephone(string $telephone): self
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
     {
-        $this->telephone = $telephone;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): self
+    {
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getLastName(): ?string
     {
-        return $this->email;
+        return $this->lastName;
     }
 
-    public function setEmail(string $email): self
+    public function setLastName(?string $lastName): self
     {
-        $this->email = $email;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
-    public function getDateNaissance(): ?\DateTimeInterface
+    public function getAddress(): ?string
     {
-        return $this->date_naissance;
+        return $this->address;
     }
 
-    public function setDateNaissance(\DateTimeInterface $date_naissance): self
+    public function setAddress(?string $address): self
     {
-        $this->date_naissance = $date_naissance;
+        $this->address = $address;
 
         return $this;
     }
 
-    public function getMotDePasse(): ?string
+    public function getPhoneNumber(): ?string
     {
-        return $this->mot_de_passe;
+        return $this->phone_number;
     }
 
-    public function setMotDePasse(string $mot_de_passe): self
+    public function setPhoneNumber(?string $phone_number): self
     {
-        $this->mot_de_passe = $mot_de_passe;
+        $this->phone_number = $phone_number;
 
         return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birth_date;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birth_date): self
+    {
+        $this->birth_date = $birth_date;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        if (!empty($this->firstName)) {
+        if (!empty($this->lastName)) {
+        return $this->firstName." ". $this->lastName;
+    } else {
+        return $this->firstName;
+    }
+    } else if (!empty($this->lastName)) {
+        return $this->lastName;
+    }
+        return $this->username;
     }
 }
