@@ -8,8 +8,19 @@
 <div class="example-wrapper">
     <ul>
     {% for produit in produits %}
-        <li>{{produit}} : {{produit.categorie}} - {{produit.nom}} - {{produit.description}} - {{produit.prix}}€ - {{produit.stock}} - {{produit.photo}}</li>
+        <li>{{produit}} : {{produit.categorie}} - {{produit.nom}} - {{produit.description}} - {{produit.prix}}€ - {{produit.stock}} - <img src={{produit.photo}} alt={{produit.nom}}> </li>
     {% endfor %}
     </ul>
 </div>
+
+
+{% if previous >= 0 %}
+    <a href ="{{ path( 'accueil' , { offset: previous }) }}" class="btn btn sm btn primary"><<</a>
+{% endif  %}
+    Il y a {{ produits|length ~' produits'~( produits|length > 1 ? 's' : '') }}
+{% if next < produits|length %}
+    <a href ="{{ path( 'accueil' , { offset: next }) }}" class="btn btn sm btn primary">>></a>
+{% endif  %}
+
 {% endblock %}
+
