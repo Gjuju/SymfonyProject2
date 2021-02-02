@@ -1,0 +1,30 @@
+    
+    
+    
+    .container-fluid{
+        padding-left:0px;
+        padding-right: 0px;
+    }    
+   
+     /* Remove the navbar's default rounded borders and increase the bottom
+      margin */ 
+      .navbar { padding-left: 50px;
+                padding-right: 50px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-radius: 0; }
+     .navbar-inverse{
+         margin: 0px;
+         vertical-align: middle;
+     }
+
+    
+
+      /* Remove the jumbotron's default bottom margin */ 
+      .jumbotron {
+          height: 200px;
+        margin-bottom: 30px; }
+
+        /* Add a gray background color and some padding to the footer */
+      footer {
+        background-color: #f2f2f2; padding: 25px; }
