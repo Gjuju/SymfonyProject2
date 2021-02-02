@@ -4,3 +4,7 @@ easy_admin:
     - App\Entity\Categorie
     - App\Entity\Produit
     - App\Entity\Utilisateur
+<<<<<<< HEAD
+=======
+
+>>>>>>> f9be281b5414410952999458559701229626d4b5
