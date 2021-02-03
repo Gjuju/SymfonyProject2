@@ -51,7 +51,7 @@ class Produit
     private $categorie;
 
     /**
-     * @ORM\ManyToMany(targetEntity=panier::class, inversedBy="produits")
+     * @ORM\ManyToMany(targetEntity=Panier::class, inversedBy="produits")
      */
     private $panier;
 
