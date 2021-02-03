@@ -26,6 +26,14 @@ class AccueilController extends AbstractController
         ]);
     }
 
-
+    /**
+     * @Route("/produit/{id}", name="detailpdt")
+     */
+    public function showProduit( Produit $produit ): Response
+    {
+        return $this->render('detailsproduit/detailPdt.html.twig', [
+            'produit' => $produit
+        ]);
+    }
 
 }

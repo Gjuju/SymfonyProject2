@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block title %}Détail produit{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center">Détails du produit</h1>
+    
+
+    
+        <div class="card" style="width: 50rem; margin:0 auto;">
+            <img src={{ produit.photo }} class="card-img-top center-block" style="width: 350px;" alt="...">
+                <div class="card-body">
+                    <h4 class="card-title">{{produit.nom}}</h4>
+    
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center">Prix : {{produit.prix}}</li>
+                    <li class="list-group-item text-center">
+                        {% if (produit.stock < 10) %} 
+                            <p> Il n'en reste plus que {{produit.stock}} en stock. Ne tardez pas à commander !</p>
+                        {% else %}
+                            <p> Stock : il reste encore {{produit.stock}} {{produit.nom}}.
+                        {% endif %}
+                    </li>
+    
+                </ul>
+            <div class="card-body">
+                <button type="button" class="btn btn-warning"><a href="#" class="card-link">Ajouter le produit au panier</a></button>
+                <button type="button" class="btn btn-alert"><a href="{{path('accueil')}}">Accueil</a></button>
+            </div>
+        </div>
+    
+    {# <div class="container-fluid">
+        <p>Nom : {{produit.nom}}</p>
+        <p>Prix : {{produit.prix}}</p>
+        <img src={{ produit.photo }} alt="photo">    
+       
+        
+        {% if (produit.stock < 10) %} 
+            <p> Il n'en reste plus que {{produit.stock}} en stock. Ne tardez pas à commander !</p>
+        {else}
+            <p> Stock : il reste encore {{produit.stock}} en stock
+        {% endif %}
+        
+        <button type="button" class="btn btn-alert"><a href="{{path('accueil')}}">Accueil</a></button>
+    </div> #}
+
+{% endblock %}

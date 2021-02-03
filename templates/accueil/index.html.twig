@@ -12,9 +12,8 @@
           <div class="card">
             <div class="card-body">
               <div class="card-img-actions">
-                <img src="{{ produit.photo }}"
-                  class="card-img img-fluid"
-                  alt="" />
+              <a href={{ path('detailpdt', { id: produit.id } ) }}><img src={{ produit.photo }} class="card-img img-fluid"
+                  alt="" /></a>
               </div>
             </div>
             <div class="card-body bg-light text-center">
