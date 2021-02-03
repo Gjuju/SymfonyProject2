@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +49,16 @@ class Produit
      * @ORM\JoinColumn(nullable=false)
      */
     private $categorie;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=panier::class, inversedBy="produits")
+     */
+    private $panier;
+
+    public function __construct()
+    {
+        $this->panier = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -128,5 +140,29 @@ class Produit
     public function __toString(): string
     {
         return $this->nom;
+    }
+
+    /**
+     * @return Collection|panier[]
+     */
+    public function getPanier(): Collection
+    {
+        return $this->panier;
+    }
+
+    public function addPanier(panier $panier): self
+    {
+        if (!$this->panier->contains($panier)) {
+            $this->panier[] = $panier;
+        }
+
+        return $this;
+    }
+
+    public function removePanier(panier $panier): self
+    {
+        $this->panier->removeElement($panier);
+
+        return $this;
     }
 }

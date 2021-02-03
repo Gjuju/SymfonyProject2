@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -70,6 +72,21 @@ class Utilisateur implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="utilisateur")
+     */
+    private $commandes;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Panier::class, mappedBy="utilisateur_id", cascade={"persist", "remove"})
+     */
+    private $panier;
+
+    public function __construct()
+    {
+        $this->commandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -238,6 +255,53 @@ class Utilisateur implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): self
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes[] = $commande;
+            $commande->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): self
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getUtilisateur() === $this) {
+                $commande->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(Panier $panier): self
+    {
+        // set the owning side of the relation if necessary
+        if ($panier->getUtilisateurId() !== $this) {
+            $panier->setUtilisateurId($this);
+        }
+
+        $this->panier = $panier;
 
         return $this;
     }
