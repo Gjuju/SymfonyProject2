@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Accueil
+{% endblock %}
+
+{% block body %}
+  <div class="container d-flex justify-content-center mt-50 mb-50">
+    <div class="row">
+      {% for produit in produits %}
+       <div class="col-md-4 mt-2">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-img-actions">
+              <a href={{ path('detailpdt', { id: produit.id } ) }}><img src={{ produit.photo }} class="card-img img-fluid"
+                  alt="" /></a>
+              </div>
+            </div>
+            <div class="card-body bg-light text-center">
+              <div class="mb-2">
+                <h6 class="font-weight-semibold mb-2">
+                  <a href="#" class="text-default mb-2" data-abc="true">
+                    {{ produit.nom }}
+                  </a>
+                </h6> <a href="#" class="text-muted" data-abc="true">{{
+                    produit.description
+                  }}</a>
+              </div>
+              <h3 class="mb-0 font-weight-semibold">
+                {{ produit.prix }}€
+              </h3>
+              <button type="button" class="btn btn-warning bg-cart">
+              <a href="{{ path('cart_add', {'id': produit }) }}" class="card-link">Ajouter le produit au panier</a>
+                <i class="fa fa-cart-plus mr-2"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if previous >= 0 %}
+    <a href="{{
+      path(
+        'accueil',
+        {
+          offset: previous
+        }
+      )
+      }}"
+      class="btn btn sm btn primary">
+      <<
+    </a>
+  {% endif %}Il y a {{ (produits|length) ~ ' produit'
+    ~ ((produits|length) > 1 ? 's' : '') }}
+  {% if next < (produits|length) %}
+    <a href="{{
+      path(
+        'accueil',
+        {
+          offset: next
+        }
+      )
+      }}"
+      class="btn btn sm btn primary">
+      >>
+    </a>
+  {% endif %}
+{% endblock %}
