@@ -29,6 +29,11 @@ class Categorie
      */
     private $produits;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photo;
+
     public function __construct()
     {
         $this->produits = new ArrayCollection();
@@ -84,5 +89,17 @@ class Categorie
     public function __toString(): string
     {
         return $this->nom_categorie;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
     }
 }

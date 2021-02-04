@@ -10,7 +10,7 @@
     
 
     
-        <div class="card" style="width: 50rem; margin:0 auto;">
+        <div class="card" style="width: 100rem; margin:0 auto;">
             <img src={{ produit.photo }} class="card-img-top center-block" style="width: 350px;" alt="...">
                 <div class="card-body">
                     <h4 class="card-title">{{produit.nom}}</h4>
@@ -19,7 +19,7 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item text-center">Prix : {{produit.prix}}</li>
                     <li class="list-group-item text-center">
-                        {% if (produit.stock < 10) %} 
+                        {% if (produit.stock < 6) %} 
                             <p> Il n'en reste plus que {{produit.stock}} en stock. Ne tardez pas à commander !</p>
                         {% else %}
                             <p> Stock : il reste encore {{produit.stock}} {{produit.nom}}.
