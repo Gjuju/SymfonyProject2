@@ -30,7 +30,7 @@
                 {{ produit.prix }}€
               </h3>
               <button type="button" class="btn btn-warning bg-cart">
-              <a href="{{ path('cart_add', {'id': produit }) }}" class="card-link">Ajouter le produit au panier</a>
+              <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter le produit au panier</a>
                 <i class="fa fa-cart-plus mr-2"></i>
               </button>
             </div>
