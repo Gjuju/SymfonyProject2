@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PanierController extends AbstractController
 {
     /**
-     * @Route("/Panier/{id}", name="Panier")
+     * @Route("/panier/{id}", name="panier")
      */
    public function Panier(Produit $produit): Response
   {
