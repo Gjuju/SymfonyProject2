@@ -18,42 +18,42 @@ class PanierController extends AbstractController
     public function Panier(SessionInterface $session, ProduitRepository $produitRepository)
     {
         $panier = $session->get('panier', []);
-        $panierWithData= [];
+        $panierWithData = [];
 
-        foreach ($panier as $id => $quantite){
-            $panierWithData[]= [
+        foreach ($panier as $id => $quantite) {
+            $panierWithData[] = [
                 'produit' => $produitRepository->find($id),
-                'quantite'=> $quantite
+                'quantite' => $quantite
             ];
         }
 
-        $total=0;
-
-        foreach($panierWithData as $item){
+        $total = 0;
+        /* dd($panierWithData); */
+        foreach ($panierWithData as $item) {
             $totalItem = $item['produit']->getPrix() * $item['quantite'];
             $total += $totalItem;
         }
 
         return $this->render('panier/panier.html.twig', [
-            'items'=> $panierWithData,
+            'items' => $panierWithData,
             'total' => $total
         ]);
-
     }
     /**
      * @Route("/panier/add/{id}", name="cart_add")
      */
-    public function add($id, Request $request){
+    public function add($id, Request $request)
+    {
         $session = $request->getSession();
 
         $panier = $session->get('panier', []);
 
-        if(!empty($panier[$id])){
+        if (!empty($panier[$id])) {
             $panier[$id]++;
-        }else{
-            $panier[$id]= 1;
+        } else {
+            $panier[$id] = 1;
         }
-        
+
 
 
         $session->set('panier', $panier);
@@ -65,10 +65,11 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/remove/{id}", name="cart_remove")
      */
-    public function remove($id, SessionInterface $session){
-        $panier = $session->get('panier',[]);
+    public function remove($id, SessionInterface $session)
+    {
+        $panier = $session->get('panier', []);
 
-        if(!empty($panier[$id])){
+        if (!empty($panier[$id])) {
             unset($panier[$id]);
         }
 

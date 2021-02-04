@@ -36,10 +36,12 @@ class Panier
     private $quantite;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Produit::class, mappedBy="panier")
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="panier")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $produits;
+    private $produit;
 
+    
     public function __construct()
     {
         $this->produits = new ArrayCollection();
@@ -86,30 +88,16 @@ class Panier
         return $this;
     }
 
-    /**
-     * @return Collection|Produit[]
-     */
-    public function getProduits(): Collection
+    public function getProduit(): ?Produit
     {
-        return $this->produits;
+        return $this->produit;
     }
 
-    public function addProduit(Produit $produit): self
+    public function setProduit(?Produit $produit): self
     {
-        if (!$this->produits->contains($produit)) {
-            $this->produits[] = $produit;
-            $produit->addPanier($this);
-        }
+        $this->produit = $produit;
 
         return $this;
     }
 
-    public function removeProduit(Produit $produit): self
-    {
-        if ($this->produits->removeElement($produit)) {
-            $produit->removePanier($this);
-        }
-
-        return $this;
-    }
 }

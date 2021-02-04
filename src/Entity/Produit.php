@@ -51,10 +51,11 @@ class Produit
     private $categorie;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Panier::class, inversedBy="produits")
+     * @ORM\OneToMany(targetEntity=Panier::class, mappedBy="produit", orphanRemoval=true)
      */
     private $panier;
 
+    
     public function __construct()
     {
         $this->panier = new ArrayCollection();
@@ -143,26 +144,34 @@ class Produit
     }
 
     /**
-     * @return Collection|panier[]
+     * @return Collection|Panier[]
      */
     public function getPanier(): Collection
     {
         return $this->panier;
     }
 
-    public function addPanier(panier $panier): self
+    public function addPanier(Panier $panier): self
     {
         if (!$this->panier->contains($panier)) {
             $this->panier[] = $panier;
+            $panier->setProduit($this);
         }
 
         return $this;
     }
 
-    public function removePanier(panier $panier): self
+    public function removePanier(Panier $panier): self
     {
-        $this->panier->removeElement($panier);
+        if ($this->panier->removeElement($panier)) {
+            // set the owning side to null (unless already changed)
+            if ($panier->getProduit() === $this) {
+                $panier->setProduit(null);
+            }
+        }
 
         return $this;
     }
+
+    
 }
