@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-
+<div class="container">
   <div class="bg-light p-3">
     <h1> Votre Panier </h1>
   </div>
@@ -21,6 +21,7 @@
         </tr>
       </thead>
       <tbody>
+
         {% for item in items %}
           <tr>
             <td>{{ item.produit.nom }}</td>
@@ -28,16 +29,26 @@
             <td>{{ item.quantite }}</td>
             <td>{{ item.produit.prix * item.quantite }}</td>
             <td>
-              <a href="#" class="btn btn-danger btn-sm">
-                <i class="fas fa-trash"></i>
+              <a href="{{ path('cart_remove', {'id': item.produit.id})}}" class="btn btn-danger btn-sm" >Supprimer
               </a>
             </td>
           </tr>
           
         {% endfor %}
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-right">Total :</td>
+          <td>{{ total }}</td>
+          <td></td>
+        </tr>
+      </tfoot>
     </table>
+    <div class="text-center">
+      <a href="#" class="btn btn-success">Valider la commande</a>
+    </div>
   {% else %}
     <p>Surprise, c'est vide !</p>
   {% endif %}
+</div>
 {% endblock %}
