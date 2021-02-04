@@ -57,7 +57,7 @@ class PanierController extends AbstractController
 
 
         $session->set('panier', $panier);
-        dd($session->get('panier'));
+        return $this->redirectToRoute("accueil");
     }
 
 
