@@ -9,42 +9,34 @@
   <div class="bg-light p-3">
     <h1> Votre Panier </h1>
   </div>
-
-  {# {% if (produit|length) > 0 %} #}
-    <table class="table">
-        <thead>
+  {% if items | length > 0 %}
+    <table class='table'>
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Prix</th>
+          <th>Quantité</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
           <tr>
-            <th>Produit</th>
-            <th>Prix</th>
-            <th>Quantité</th>
-            <th>Total</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-        {# {% for produit in produits %} #}
-          <tr>
-            <td> {{ produit.nom }}</td>
-            <td> {{ produit.prix }}€</td>
-            <td {{ produit.stock }}€></td>
-            <td>{{ produit.prix * produit.stock }}</td>
+            <td>{{ item.produit.nom }}</td>
+            <td>{{ item.produit.prix }}</td>
+            <td>{{ item.quantite }}</td>
+            <td>{{ item.produit.prix * item.quantite }}</td>
             <td>
-            <a href="#" class="btn btn-danger btn-sm"></a>
-            <i class="fas fa-trash"></i>
+              <a href="#" class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i>
+              </a>
             </td>
           </tr>
-       {# {% endfor %} #}
-        </tbody>
-
-
-    </table>
-
-  {# {% endif %} #}
-
-  {# {% for produit in produits %} <img src="{{ produit.photo }}" {{ produit.nom }} {{ produit.description }} € #}
-
-  
-
- 
+          
+        {% endfor %}
+      </tbody>
+  {% else %}
+    <p>Surprise, c'est vide !</p>
+  {% endif %}
 {% endblock %}

@@ -12,7 +12,7 @@
           <div class="card">
             <div class="card-body">
               <div class="card-img-actions">
-              <a href={{ path('detailpdt', { id: produit.id } ) }}><img src={{ produit.photo }} class="card-img img-fluid" style="width: 350px;"
+              <a href={{ path('detailpdt', { id: produit.id } ) }}><img src={{ produit.photo }} class="card-img img-fluid"
                   alt="" /></a>
               </div>
             </div>
@@ -30,7 +30,8 @@
                 {{ produit.prix }}€
               </h3>
               <button type="button" class="btn btn-warning bg-cart">
-                <i class="fa fa-cart-plus mr-2"></i> Ajouter au panier
+              <a href="{{ path('cart_add', {'id': produit }) }}" class="card-link">Ajouter le produit au panier</a>
+                <i class="fa fa-cart-plus mr-2"></i>
               </button>
             </div>
           </div>

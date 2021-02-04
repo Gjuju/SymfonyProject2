@@ -17,7 +17,7 @@
     
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-center">Prix : {{produit.prix}} €</li>
+                    <li class="list-group-item text-center">Prix : {{produit.prix}}</li>
                     <li class="list-group-item text-center">
                         {% if (produit.stock < 10) %} 
                             <p> Il n'en reste plus que {{produit.stock}} en stock. Ne tardez pas à commander !</p>
@@ -28,7 +28,7 @@
     
                 </ul>
             <div class="card-body">
-                <button type="button" class="btn btn-warning"><a href="#" class="card-link">Ajouter le produit au panier</a></button>
+                <button type="button" class="btn btn-warning"><a href="{{ path('cart_add', {'id': produit }) }}" class="card-link">Ajouter le produit au panier</a></button>
                 <button type="button" class="btn btn-alert"><a href="{{path('accueil')}}">Accueil</a></button>
             </div>
         </div>
