@@ -12,13 +12,13 @@
           <div class="card">
             <div class="card-body">
               <div class="card-img-actions">
-              <a href=""><img src="" class="card-img img-fluid" alt="" /></a>
+              <a href={{ path('categorie' , { id: categorie.id }) }}><img src="" class="card-img img-fluid" alt="" /></a>
               </div>
             </div>
             <div class="card-body bg-light text-center">
               <div class="mb-2">
                 <h2 class="font-weight-semibold mb-2">
-                  <a href="#" class="text-default mb-2" data-abc="true">
+                  <a href={{ path('categorie' , { id: categorie.id }) }} class="text-default mb-2" data-abc="true">
                     {{ categorie }}
                   </a>
                 </h2>

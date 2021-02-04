@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categorie;
 use App\Entity\Produit;
 use App\Repository\CategorieRepository;
 use App\Repository\ProduitRepository;
@@ -43,12 +44,27 @@ class AccueilController extends AbstractController
     public function showCategories(CategorieRepository $categorieRepository, Request $request): Response
     {
         $offset = max(0, $request->query->getInt('offset', 0));
-        $paginator = $categorieRepository->getCategoriePaginator($offset);
+        $paginator = $categorieRepository->getCategoriesPaginator($offset);
         
         return $this->render('accueil/categories.html.twig', [
             'categories' => $paginator,
             'previous' => $offset - CategorieRepository::PAGINATOR_PER_PAGE,
             'next' => min(count($paginator), $offset + CategorieRepository::PAGINATOR_PER_PAGE),
+        ]);
+    }
+
+    /**
+     * @Route("/categorie/{id}", name="categorie")
+     */
+    public function showProductsCategories(ProduitRepository $produitRepository, int $id , Request $request): Response
+    {
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $produitRepository->getCategoriePaginator($id, $offset);
+        
+        return $this->render('accueil/categorie.html.twig', [
+            'produits' => $paginator,
+            'previous' => $offset - ProduitRepository::PAGINATOR_PER_PAGE,
+            'next' => min(count($paginator), $offset + ProduitRepository::PAGINATOR_PER_PAGE),
         ]);
     }
 }

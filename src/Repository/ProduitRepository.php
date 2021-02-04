@@ -23,16 +23,28 @@ class ProduitRepository extends ServiceEntityRepository
 
     public const PAGINATOR_PER_PAGE = 10;
 
-    public function getProduitPaginator(int $offset ): Paginator
+    public function getProduitPaginator(int $offset): Paginator
     {
-    $query = $this->createQueryBuilder ('p')
-    ->setMaxResults( self::PAGINATOR_PER_PAGE)
-    ->setFirstResult ($offset)
-    ->getQuery();
+        $query = $this->createQueryBuilder('p')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery();
 
-    return new Paginator($query);
-}
+        return new Paginator($query);
+    }
 
+
+    public function getCategoriePaginator(int $id, int $offset): Paginator
+    {
+        $query = $this->createQueryBuilder('c')
+            ->andWhere('c.categorie = :categorie')
+            ->setParameter('categorie', $id)
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery();
+
+        return new Paginator($query);
+    }
     // /**
     //  * @return Produit[] Returns an array of Produit objects
     //  */
