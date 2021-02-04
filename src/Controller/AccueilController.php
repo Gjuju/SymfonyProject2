@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Produit;
+use App\Repository\CategorieRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,4 +37,18 @@ class AccueilController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/categories", name="categories")
+     */
+    public function showCategories(CategorieRepository $categorieRepository, Request $request): Response
+    {
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $categorieRepository->getCategoriePaginator($offset);
+        
+        return $this->render('accueil/categories.html.twig', [
+            'categories' => $paginator,
+            'previous' => $offset - CategorieRepository::PAGINATOR_PER_PAGE,
+            'next' => min(count($paginator), $offset + CategorieRepository::PAGINATOR_PER_PAGE),
+        ]);
+    }
 }

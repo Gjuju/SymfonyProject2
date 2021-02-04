@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Categorie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +20,18 @@ class CategorieRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorie::class);
     }
 
+
+    public const PAGINATOR_PER_PAGE = 10;
+
+    public function getCategoriePaginator(int $offset ): Paginator
+    {
+    $query = $this->createQueryBuilder ('c')
+    ->setMaxResults( self::PAGINATOR_PER_PAGE)
+    ->setFirstResult ($offset)
+    ->getQuery();
+
+    return new Paginator($query);
+}
     // /**
     //  * @return Categorie[] Returns an array of Categorie objects
     //  */

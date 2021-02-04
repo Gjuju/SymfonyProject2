@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Accueil
+{% endblock %}
+
+{% block body %}
+  <div class="container d-flex justify-content-center mt-50 mb-50">
+    <div class="row">
+      {% for categorie in categories %}
+        <div class="col-md-4 mt-2">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-img-actions">
+              <a href=""><img src="" class="card-img img-fluid" alt="" /></a>
+              </div>
+            </div>
+            <div class="card-body bg-light text-center">
+              <div class="mb-2">
+                <h2 class="font-weight-semibold mb-2">
+                  <a href="#" class="text-default mb-2" data-abc="true">
+                    {{ categorie }}
+                  </a>
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if previous >= 0 %}
+    <a href="{{
+      path(
+        'accueil',
+        {
+          offset: previous
+        }
+      )
+      }}"
+      class="btn btn sm btn primary">
+      <<
+    </a>
+  {% endif %}Il y a {{ (categories|length) ~ ' produit'
+    ~ ((categories|length) > 1 ? 's' : '') }}
+  {% if next < (categories|length) %}
+    <a href="{{
+      path(
+        'accueil',
+        {
+          offset: next
+        }
+      )
+      }}"
+      class="btn btn sm btn primary">
+      >>
+    </a>
+  {% endif %}
+{% endblock %}
