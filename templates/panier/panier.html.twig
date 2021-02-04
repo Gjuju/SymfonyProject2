@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-
+<div class="container">
   <div class="bg-light p-3">
     <h1> Votre Panier </h1>
   </div>
@@ -21,6 +21,7 @@
         </tr>
       </thead>
       <tbody>
+
         {% for item in items %}
           <tr>
             <td>{{ item.produit.nom }}</td>
@@ -43,7 +44,11 @@
         </tr>
       </tfoot>
     </table>
+    <div class="text-center">
+      <a href="#" class="btn btn-success">Valider la commande</a>
+    </div>
   {% else %}
     <p>Surprise, c'est vide !</p>
   {% endif %}
+</div>
 {% endblock %}
