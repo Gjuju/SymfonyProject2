@@ -11,7 +11,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CreationProduitController extends AbstractController
 {
-    #[Route('/creationproduit', name: 'creation_produit')]
+    /**
+     * @Route("/creationproduit", name="creation_produit")
+     */
     public function index(Request $request)
     {
         $produit = new Produit();
