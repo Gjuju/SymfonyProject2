@@ -1,24 +1,40 @@
     
+    body{
+      height: 100vh;
+      width: 100vw;
+    }
     
     
     .container-fluid{
         padding-left:0px;
         padding-right: 0px;
     }    
+
+
    
-     /* Remove the navbar's default rounded borders and increase the bottom
+    /* Remove the navbar's default rounded borders and increase the bottom
       margin */ 
-      .navbar { padding-left: 50px;
+       .navbar {
+                padding-left: 50px;
                 padding-right: 50px;
                 padding-top: 10px;
                 padding-bottom: 10px;
-                border-radius: 0; }
-     .navbar-inverse{
+                border-radius: 0;
+               }
+
+     .navbar-expand{
          margin: 0px;
-         vertical-align: middle;
+         background-color: lightgrey;
+         border: none;
      }
 
-    
+    .navbar-brand{
+      height:100px;
+    }
+
+    .navbar ul{
+
+    }
 
       /* Remove the jumbotron's default bottom margin */ 
       .jumbotron {
@@ -27,4 +43,23 @@
 
         /* Add a gray background color and some padding to the footer */
       footer {
-        background-color: #f2f2f2; padding: 25px; }
+        background-color: #f2f2f2;
+         padding: 15px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+        /* logo */
+
+        .navbar-brand img{
+          display: flex;
+          align-items: center;
+          height: 100px;
+          width: 100px;
+        }
+
+       #boutonLoginPanier{
+         margin-top: 16px;
+       }
+        
