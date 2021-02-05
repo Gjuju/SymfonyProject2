@@ -10,7 +10,7 @@
         produits admin
     </h1>
     <div>
-    <a href="path( '' )"><button type="button" class="btn btn-primary">Ajouter Produit</button></a>
+    <a href={{path('creation_produit')}}><button type="button" class="btn btn-primary">Ajouter Produit</button></a>
     </div>
         {% for produit in produits %}
         <div class="card mb-3" style="height: 100px" >
@@ -33,7 +33,7 @@
                     <h4 class="card-text">{{produit.prix}} €</h4>
                 </div>
                <div class="col-md-2">
-               <a href="path( '' , {id: produit.id})"><button type="button" class="btn btn-primary">Modifier</button></a>
+               <a href={{path( 'modif_produit' , {id: produit.id})}}><button type="button" class="btn btn-primary">Modifier</button></a>
                </div>
 
             </div>
