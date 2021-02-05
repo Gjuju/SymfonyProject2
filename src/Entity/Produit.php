@@ -55,6 +55,11 @@ class Produit
      */
     private $panier;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
     
     public function __construct()
     {
@@ -169,6 +174,18 @@ class Produit
                 $panier->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }
