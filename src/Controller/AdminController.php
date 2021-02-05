@@ -67,6 +67,8 @@ class AdminController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Votre Compte a bien été modifié');
+
             $utilisateur->setPassword(
                 $passwordEncoder->encodePassword(
                     $utilisateur,

@@ -3,12 +3,13 @@
 {% block title %}Compte utilisateur{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">{{ message }}</div>
+        {% endfor %}
 
-    <h1>Mon compte</h1>
+        <h1>Mon compte {{app.user.username}}</h1>
 
-    {{ form(userForm) }}
-
+        {{ form(userForm) }}
+    </div>
 {% endblock %}
