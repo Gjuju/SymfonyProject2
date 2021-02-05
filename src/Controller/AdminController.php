@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Utilisateur;
 use App\Form\RegistrationFormType;
+use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,10 +39,13 @@ class AdminController extends AbstractController
     /**
      * @Route("/produits_admin", name="produits_admin")
      */
-    public function produitAdmin(): Response
+    public function produitAdmin(ProduitRepository $produitRepository): Response
     {
+
+        $produits = $produitRepository->findAll();
+
         return $this->render('admin/produits_admin.html.twig', [
-            
+            'produits' => $produits
         ]);
     }
 
