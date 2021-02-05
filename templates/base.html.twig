@@ -63,22 +63,22 @@
             <!-- Signin & Signup -->
             <li>
             {% if is_granted('ROLE_ADMIN') %}
-              <a href={{path('app_logout')}}>
+              <a href={{path('compte')}}>
                 <button type="button"
                   class="btn btn-success btn-md"
                   data-toggle="modal"
                   data-target=".login-register-form">
-                  Déconnexion admin
+                  Mon Compte
                 </button>
                 <span class="glyphicon glyphicon-user"></span>
               </a>
               {% elseif is_granted('ROLE_USER') %}
-              <a href={{path('app_logout')}}>
+              <a href={{path('compte')}}>
                 <button type="button"
                   class="btn btn-success btn-md"
                   data-toggle="modal"
                   data-target=".login-register-form">
-                  Déconnexion user
+                  Mon Compte
                 </button>
                 <span class="glyphicon glyphicon-user"></span>
               </a>

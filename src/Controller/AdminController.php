@@ -16,6 +16,16 @@ class AdminController extends AbstractController
 {
 
     /**
+     * @Route("/compte", name="compte")
+     */
+    public function compte (): Response
+    {
+        return $this->render('admin/compte.html.twig', [
+
+        ]);
+    }
+
+    /**
      * @Route("/commandes_admin", name="commandes_admin")
      */
     public function commandesAdmin(): Response
