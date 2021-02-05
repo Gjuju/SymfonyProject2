@@ -18,13 +18,12 @@ class CreationProduitController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager)
     {
         $produit = new Produit();
-        $form = $this->createForm(CreationProduitForm::class);
+        $form = $this->createForm(CreationProduitForm::class, $produit);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted()){
             //on enregistre le produit en bdd
-            $entityManager = $this->getDoctrine()->getManager();
 
             $entityManager->persist($produit);
             $entityManager->flush();
