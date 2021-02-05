@@ -11,7 +11,7 @@
 
     {% if is_granted('ROLE_USER') %}
     <h1 class="text-center">{{app.user.username}}</h1>
-        <a href={{path('compte_user')}}><button class="btn btn-lg btn-primary" type="button">Mon compte</button></a>
+        <a href={{path('compte_user', { id: app.user.id})}}><button class="btn btn-lg btn-primary" type="button">Mon compte</button></a>
         <a href={{path('commandes_user')}}><button class="btn btn-lg btn-primary" type="button">Mes commandes</button></a>
     {% else %}
     <h1 class="text-center">{{app.user.username}}</h1>
