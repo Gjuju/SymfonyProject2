@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Panier;
 use App\Entity\Produit;
 use App\Repository\ProduitRepository;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,15 +42,11 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/add/{id}", name="cart_add")
      */
-    public function add($id, Request $request, EntityManagerInterface $entityManager): Response
+    public function add($id, Request $request)
     {
-        $panier = new Panier();
         $session = $request->getSession();
 
         $panier = $session->get('panier', []);
-        $entityManager->persist($panier);
-        $entityManager->flush();
-
 
         if (!empty($panier[$id])) {
             $panier[$id]++;
