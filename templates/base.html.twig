@@ -6,21 +6,30 @@
     {# Boostrap #}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
 
     {# FontAwesome #}
     <link rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 
     {# CSS #}
-    <link rel="stylesheet" href="/css/Base.css">
+    <link rel="stylesheet" href="/css/Base.css" />
     <link rel="stylesheet" href="/css/modalLogin.css" />
-        <link rel="stylesheet" href="/css/PresentationProduitAccueil.css" />
+    <link rel="stylesheet" href="/css/PresentationProduitAccueil.css" />
 
     <script src="/js/modalLogin.js"></script>
-    
+
     <title>
       {% block title %}
         Bonjour
@@ -34,13 +43,12 @@
     {% block javascripts %}
 
     {% endblock %}
-   
   </head>
 
   <body>
-        <div class="container-fluid" id="containerHeader">
+    {# <div class="container-fluid" >
 
-    <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-expand" >
         <div class="navbar-header">
           <button type="button"
             class="navbar-toggle"
@@ -50,16 +58,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Logo</a>
+
+      
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
+        <div class="collapse navbar-collapse align-middle" id="myNavbar">
           <ul class="nav navbar-nav">
-            <li class="active"><a href={{path('accueil')}}>Accueil</a></li>
             <li><a href={{path('categories')}}>Catégorie</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
 
-            {# Bouton modal #}
             <!-- Signin & Signup -->
             <li>
             {% if is_granted('ROLE_ADMIN') %}
@@ -105,125 +112,95 @@
           </ul>
         </div>
       </div>
-    </nav>
-{# 
-    <!-- Modal -->
+    </nav> #}
 
-    <div class="container">
-      <div class="row">
-        <!-- Signin & Signup -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand align-middle"  href="{{path('accueil')}}">
+          <img src="\img\logo-nocamaju.PNG" alt="logo nocamaju"></a>
+      <button class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#myNavbar"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <!-- Login / Register Modal -->
-        <div class="modal fade login-register-form" id="" role="dialog">
-          <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">
-                  <span class="glyphicon glyphicon-remove"></span>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{{path('accueil')}}">
+              Accueil <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle"
+              href="{{path('categories')}}"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
+              Catégorie
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Livre</a>
+              <a class="dropdown-item" href="#">Jouet</a>
+              <a class="dropdown-item" href="#">Jeu Vidéo</a>   
+              <a class="dropdown-item" href="#">Électroménager</a>
+              <a class="dropdown-item" href="#">Musique</a>
+              </div>
+          </li>
+         </ul>
+
+         
+       <!-- Signin & Signup -->
+       <ul id="boutonLoginPanier">
+                  {% if is_granted('ROLE_ADMIN') %}
+              <a href={{path('compte')}}>
+                <button type="button"
+                  class="btn btn-outline-danger btn-md"
+                  data-toggle="modal"
+                  data-target=".login-register-form">
+                  Mon Compte Admin
                 </button>
-                <ul class="nav nav-tabs">
-                  <li class="active">
-                    <a data-toggle="tab" href="#login-form">
-                      Se Connecter <span class="glyphicon glyphicon-user"></span>
-                    </a>
-                  </li>
-                  <li>
-                    <a data-toggle="tab" href="#registration-form">
-                      S'enregistrer <span class="glyphicon glyphicon-pencil"></span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div class="modal-body">
-                <div class="tab-content">
-                  <div id="login-form" class="tab-pane fade in active">
-                    <form action="/">
-                      <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email"
-                          class="form-control"
-                          id="email"
-                          placeholder="Saisissez votre mail"
-                          name="email" />
-                      </div>
-                      <div class="form-group">
-                        <label for="pwd">Mots de passe:</label>
-                        <input type="password"
-                          class="form-control"
-                          id="pwd"
-                          placeholder="Entrer votre mots de passe"
-                          name="pwd" />
-                      </div>
-
-                      <button type="submit" class="btn btn-default">
-                        Se connecter
-                      </button>
-                    </form>
-                  </div>
-                  <div id="registration-form" class="tab-pane fade">
-                    <form action="/">
-                      <div class="form-group">
-                        <label for="name">Votre Nom:</label>
-                        <input type="text"
-                          class="form-control"
-                          id="name"
-                          placeholder="Entrez votre nom"
-                          name="name" />
-                      </div>
-                      <div class="form-group">
-                        <label for="newemail">Email:</label>
-                        <input type="email"
-                          class="form-control"
-                          id="newemail"
-                          placeholder="Entrez votre email"
-                          name="newemail" />
-                      </div>
-                      <div class="form-group">
-                        <label for="newpwd">Mots de Passe:</label>
-                        <input type="password"
-                          class="form-control"
-                          id="newpwd"
-                          placeholder="Nouveau mots de passe"
-                          name="newpwd" />
-                      </div>
-                      <button type="submit" class="btn btn-default">
-                        S'enregistrer
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-             
-            </div>
-          </div>
-        </div>
+                <span class="glyphicon glyphicon-user"></span>
+              </a>
+              {% elseif is_granted('ROLE_USER') %}
+              <a href={{path('compte')}}>
+                <button type="button"
+                  class="btn btn-success btn-md"
+                  data-toggle="modal"
+                  data-target=".login-register-form">
+                  Mon Compte
+                </button>
+                <span class="glyphicon glyphicon-user"></span>
+              </a>
+            {% else %}
+              <a href={{path('app_login')}}>
+                <button type="button"
+                  class="btn btn-outline-success btn-md"
+                  data-toggle="modal"
+                  data-target=".login-register-form">
+                  Connexion
+                </button>
+                <span class="glyphicon glyphicon-user"></span>
+              </a>
+            {% endif %}
+                         <a href={{path('panier')}}><button type="button" class="btn btn-warning btn-md">
+                         <img src="/img/icons8-caddie-24.png" alt="Logo Panier"> Panier </button></a>
+                      
+            </ul>
       </div>
-    </div> #}
-
-    {# Fin Modal #}
-
-    <div class="jumbotron">
-      <div class="container text-center">
-        <h1>
-          NoCaMaJu
-        </h1>
-        <p>
-          E-Commerce
-        </p>
-      </div>
-    </div>
+    </nav>
 
 
+     {% block body %}
 
-
-    {% block body %}
-
-       
     {% endblock %}
-
-  
   </body>
-    <footer>
+  <footer>
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3">
@@ -295,17 +272,11 @@
                 Samedi 9h-19h
               </a>
             </li>
-            <li>
-              <img src="https://img.icons8.com/color/20/000000/cancel-2--v1.png"
-                style="margin-right:10px" /><a class="text-muted" href="#">
-                Dimanche
-              </a>
-            </li>
           </ul>
         </div>
       </div>
-      </div>
-      {# Icones couleurs #}
-      <a href="https://icons8.com/icon/63262/vérifié"></a>
-    </footer>
+    </div>
+    {# Icones couleurs #}
+    <a href="https://icons8.com/icon/63262/vérifié"></a>
+  </footer>
 </html>
