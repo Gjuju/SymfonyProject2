@@ -1,17 +1,43 @@
 {% extends 'base.html.twig' %}
 
-
-
-{% block title %}Détail produit{% endblock %}
+{% block title %}
+  Détail produit
+{% endblock %}
 
 {% block body %}
+<div class="container">
+    <h1 class="text-center">
+        produits admin
+    </h1>
+    <div>
+    <a href="path( '' )"><button type="button" class="btn btn-primary">Ajouter Produit</button></a>
+    </div>
+        {% for produit in produits %}
+        <div class="card mb-3" style="height: 100px" >
+            <div class="row no-gutters">
+                <div class="col-md-2">
+                    <img src={{produit.photo}} class="rounded" style="height: 100px" alt="...">
+                </div>
+                <div class="card-body">
+                <div class="col-md-2">
+                    <h3 class="card-title">{{produit.nom}}</h5>
+                </div>
+                <div class="col-md-3">
+                    <h4 class="card-text">{{produit.description}}</h4>
+                </div>
+                <div class="col-md-2">
+                <h4>Stock</h4>
+                    <h4 class="card-text">{{produit.stock}}</small></h4> 
+               </div>
+               <div class="col-md-1">
+                    <h4 class="card-text">{{produit.prix}} €</h4>
+                </div>
+               <div class="col-md-2">
+               <a href="path( '' , {id: produit.id})"><button type="button" class="btn btn-primary">Modifier</button></a>
+               </div>
 
-    <h1 class="text-center">produits admin</h1>
-    
-
-    
-        
-    
-    
-
+            </div>
+        </div>
+</div>
+    {% endfor %}
 {% endblock %}
