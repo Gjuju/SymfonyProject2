@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block title %}Détail produit{% endblock %}
+
+{% block body %}
+
+    
+    <div class="container text-center">
+
+    {% if is_granted('ROLE_USER') %}
+    <h1 class="text-center">{{app.user.username}}</h1>
+        <a href={{path('compte_user')}}><button class="btn btn-lg btn-primary" type="button">Mon compte</button></a>
+        <a href={{path('commandes_user')}}><button class="btn btn-lg btn-primary" type="button">Mes commandes</button></a>
+    {% else %}
+    <h1 class="text-center">{{app.user.username}}</h1>
+        <a href={{path('produits_admin')}}><button class="btn btn-lg btn-primary" type="button">Gestion Produits</button></a>
+        <a href={{path('commandes_admin')}}><button class="btn btn-lg btn-primary" type="button">Gestion Commandes</button></a>
+    {% endif %}
+
+
+
+
+    <a href={{path('app_logout')}}><button class="btn btn-lg btn-primary" type="button">Déconnexion</button></a>
+    
+    </div>
+
+    
+
+{% endblock %}
