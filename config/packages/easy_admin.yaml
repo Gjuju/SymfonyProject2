@@ -4,3 +4,5 @@ easy_admin:
     - App\Entity\Categorie
     - App\Entity\Produit
     - App\Entity\Utilisateur
+    - App\Entity\Panier
+    - App\Entity\Commande

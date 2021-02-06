@@ -8,6 +8,7 @@
   <div class="container d-flex justify-content-center mt-50 mb-50">
     <div class="row">
       {% for produit in produits %}
+      {% if produit.isActive %}
         <div class="col-md-4 mt-2">
           <div class="card">
             <div class="card-body">
@@ -36,10 +37,12 @@
             </div>
           </div>
         </div>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
 
+<div class="text-center">
   {% if previous >= 0 %}
     <a href="{{
       path(
@@ -67,4 +70,5 @@
       >>
     </a>
   {% endif %}
+  </div>
 {% endblock %}

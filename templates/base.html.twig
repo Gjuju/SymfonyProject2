@@ -136,15 +136,15 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle"
-              href="{{path('categories')}}"
               id="navbarDropdown"
               role="button"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false">
-              Catégorie
+              Catégories
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href={{path('categories')}}>Toutes les catégories</a> {# ajout pour débuggage facile #}
               <a class="dropdown-item" href="#">Livre</a>
               <a class="dropdown-item" href="#">Jouet</a>
               <a class="dropdown-item" href="#">Jeu Vidéo</a>   
@@ -199,7 +199,6 @@
      {% block body %}
 
     {% endblock %}
-  </body>
   <footer>
     <div class="container-fluid">
       <div class="row">
@@ -279,4 +278,5 @@
     {# Icones couleurs #}
     <a href="https://icons8.com/icon/63262/vérifié"></a>
   </footer>
+  </body>
 </html>

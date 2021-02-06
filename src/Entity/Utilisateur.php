@@ -79,13 +79,15 @@ class Utilisateur implements UserInterface
     private $commandes;
 
     /**
-     * @ORM\OneToOne(targetEntity=Panier::class, mappedBy="utilisateur_id", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Panier::class, mappedBy="utilisateur")
      */
     private $panier;
 
+    
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+        $this->panier = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -289,20 +291,35 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    public function getPanier(): ?Panier
+    /**
+     * @return Collection|Panier[]
+     */
+    public function getPanier(): Collection
     {
         return $this->panier;
     }
 
-    public function setPanier(Panier $panier): self
+    public function addPanier(Panier $panier): self
     {
-        // set the owning side of the relation if necessary
-        if ($panier->getUtilisateurId() !== $this) {
-            $panier->setUtilisateurId($this);
+        if (!$this->panier->contains($panier)) {
+            $this->panier[] = $panier;
+            $panier->setUtilisateur($this);
         }
-
-        $this->panier = $panier;
 
         return $this;
     }
+
+    public function removePanier(Panier $panier): self
+    {
+        if ($this->panier->removeElement($panier)) {
+            // set the owning side to null (unless already changed)
+            if ($panier->getUtilisateur() === $this) {
+                $panier->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
 }

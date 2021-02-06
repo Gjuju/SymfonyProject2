@@ -8,7 +8,8 @@
   <div class="container d-flex justify-content-center mt-50 mb-50">
     <div class="row">
       {% for produit in produits %}
-       <div class="col-md-4 mt-2">
+      {% if produit.isActive %}
+        <div class="col-md-4 mt-2">
           <div class="card">
             <div class="card-body">
               <div class="card-img-actions">
@@ -30,16 +31,18 @@
                 {{ produit.prix }}€
               </h3>
               <button type="button" class="btn btn-warning bg-cart">
-              <a href="{{ path('cart_add', {'id': produit }) }}" class="card-link">Ajouter le produit au panier</a>
+              <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter le produit au panier</a>
                 <i class="fa fa-cart-plus mr-2"></i>
               </button>
             </div>
           </div>
         </div>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
 
+<div class="text-center">
   {% if previous >= 0 %}
     <a href="{{
       path(
@@ -67,4 +70,5 @@
       >>
     </a>
   {% endif %}
+  </div>
 {% endblock %}

@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
 use App\Entity\Produit;
+use App\Entity\Utilisateur;
 use App\Repository\ProduitRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class PanierController extends AbstractController
 {
@@ -42,11 +46,21 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/add/{id}", name="cart_add")
      */
-    public function add($id, Request $request)
+    public function add(Produit $produit, EntityManagerInterface $entityManagerInterface, Request $request)
     {
-        $session = $request->getSession();
+        $panier = new Panier();
+
+        $panier->setQuantite(1);
+        $panier->setUtilisateur($this->getUser());
+        $panier->setProduit($produit);
+
+        //dd($panier);
+        $entityManagerInterface->persist($panier);
+        $entityManagerInterface->flush();
+        /* $session = $request->getSession();
 
         $panier = $session->get('panier', []);
+
 
         if (!empty($panier[$id])) {
             $panier[$id]++;
@@ -56,7 +70,7 @@ class PanierController extends AbstractController
 
 
 
-        $session->set('panier', $panier);
+        $session->set('panier', $panier); */
         return $this->redirectToRoute("accueil");
     }
 

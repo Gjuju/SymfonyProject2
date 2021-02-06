@@ -1,8 +1,8 @@
     
-    body{
+    /* body{
       height: 100vh;
       width: 100vw;
-    }
+    } */
     
     
     .container-fluid{
@@ -44,8 +44,8 @@
         /* Add a gray background color and some padding to the footer */
       footer {
         background-color: #f2f2f2;
-         padding: 15px;
-        position: fixed;
+        padding: 15px;
+        /* position: fixed; */
         bottom: 0;
         width: 100%;
       }
