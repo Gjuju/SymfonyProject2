@@ -26,6 +26,8 @@ class ProduitRepository extends ServiceEntityRepository
     public function getProduitPaginator(int $offset): Paginator
     {
         $query = $this->createQueryBuilder('p')
+            ->andWhere('p.isActive = :active')
+            ->setParameter('active', true)
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
             ->setFirstResult($offset)
             ->getQuery();
@@ -37,6 +39,8 @@ class ProduitRepository extends ServiceEntityRepository
     public function getCategoriePaginator(int $id, int $offset): Paginator
     {
         $query = $this->createQueryBuilder('c')
+            ->andWhere('c.isActive = :active')
+            ->setParameter('active', true)
             ->andWhere('c.categorie = :categorie')
             ->setParameter('categorie', $id)
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
