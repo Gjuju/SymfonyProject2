@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use App\Form\PassInfosType;
 use App\Form\RegistrationFormType;
+use App\Form\UserInfosType;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,11 +21,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/compte", name="compte")
      */
-    public function compte (): Response
+    public function compte(): Response
     {
-        return $this->render('admin/compte.html.twig', [
-
-        ]);
+        return $this->render('admin/compte.html.twig', []);
     }
 
     /**
@@ -31,9 +31,7 @@ class AdminController extends AbstractController
      */
     public function commandesAdmin(): Response
     {
-        return $this->render('admin/commandes_admin.html.twig', [
-            
-        ]);
+        return $this->render('admin/commandes_admin.html.twig', []);
     }
 
     /**
@@ -53,46 +51,59 @@ class AdminController extends AbstractController
     /**
      * @Route("/commandes_user", name="commandes_user")
      */
-    public function commandesUser (): Response
+    public function commandesUser(): Response
     {
-        return $this->render('admin/commandes_user.html.twig', [
-
-        ]);
+        return $this->render('admin/commandes_user.html.twig', []);
     }
 
     /**
      * @Route("/compte_user/{id}", name="compte_user")
      */
-    public function compteUser (Utilisateur $utilisateur, Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function compteUser(Utilisateur $utilisateur, Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         //$user = new Utilisateur();
-        $form = $this->createForm(RegistrationFormType::class, $utilisateur);
-        
+        $formUser = $this->createForm(UserInfosType::class, $utilisateur);
+        $formPass = $this->createForm(PassInfosType::class, $utilisateur);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+
+        $formUser->handleRequest($request);
+        
+        if ($formUser->isSubmitted() && $formUser->isValid()) {
+            $this->addFlash('success', 'Votre Compte a bien été modifié');
+
+            
+            //$utilisateur->setRoles(["ROLE_USER"]);
+            $utilisateur->setUsername($utilisateur->getFirstname());
+
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
+            return $this->redirectToRoute('compte_user', ['id' => $utilisateur->getId()]);
+        }
+
+
+
+        $formPass->handleRequest($request);
+        if ($formPass->isSubmitted() && $formPass->isValid()) {
             $this->addFlash('success', 'Votre Compte a bien été modifié');
 
             $utilisateur->setPassword(
                 $passwordEncoder->encodePassword(
                     $utilisateur,
-                    $form->get('password')->getData()
+                    $formPass->get('password')->getData()
                 )
             );
             //$utilisateur->setRoles(["ROLE_USER"]);
             $utilisateur->setUsername($utilisateur->getFirstname());
-    
-        $entityManager->persist($utilisateur);
-        $entityManager->flush();
-        return $this->redirectToRoute('compte_user', [ 'id' => $utilisateur->getId()]);
+
+            $entityManager->persist($utilisateur);
+            $entityManager->flush();
+            return $this->redirectToRoute('compte_user', ['id' => $utilisateur->getId()]);
         }
 
         return $this->render('admin/compte_user.html.twig', [
             'utilsateur' => $utilisateur,
-            'userForm' => $form->createView()
-        
+            'formPass' => $formPass->createView(),
+            'formUser' => $formUser->createView(),
         ]);
-    
-    }   
-    
+    }
 }
