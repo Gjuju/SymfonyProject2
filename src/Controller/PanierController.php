@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Panier;
 use App\Entity\Produit;
 use App\Entity\Utilisateur;
+use App\Repository\PanierRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,9 +20,29 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier", name="panier")
      */
-    public function Panier(SessionInterface $session, ProduitRepository $produitRepository)
+    public function Panier(PanierRepository $panierRepository)
     {
-        $panier = $session->get('panier', []);
+        
+        /* $listeItems = $panierRepository->findAll(); */
+        $listeItems = $panierRepository->findBy([
+            'utilisateur' => $this->getUser()->getId()
+        ]);
+        
+        
+        $total = 0 ;
+        foreach ($listeItems as $key => $value) {
+            
+           $prix = $listeItems[$key]->getProduit()->getPrix() * $listeItems[$key]->getQuantite() ;
+           $total += $prix ;
+            
+        }
+        
+        
+        // dd($listeItems, $total);
+        
+        // SELECT * FROM produit JOIN panier ON produit.id=panier.produit_id WHERE panier.utilisateur_id = 43
+
+        /* $panier = $session->get('panier', []);
         $panierWithData = [];
 
         foreach ($panier as $id => $quantite) {
@@ -30,23 +51,24 @@ class PanierController extends AbstractController
                 'quantite' => $quantite
             ];
         }
-
-        $total = 0;
-        /* dd($panierWithData); */
-        foreach ($panierWithData as $item) {
+        */
+        /* $total = 0;
+        foreach ($listeItems as $item) {
             $totalItem = $item['produit']->getPrix() * $item['quantite'];
             $total += $totalItem;
-        }
+        }  
 
+        dd($listeItems);  */
+        
         return $this->render('panier/panier.html.twig', [
-            'items' => $panierWithData,
-            'total' => $total
+            'items' => $listeItems,
+            'total' => $total,
         ]);
     }
     /**
      * @Route("/panier/add/{id}", name="cart_add")
      */
-    public function add(Produit $produit, EntityManagerInterface $entityManagerInterface, Request $request)
+    public function add(Produit $produit, EntityManagerInterface $entityManagerInterface)
     {
         $panier = new Panier();
 

@@ -9,12 +9,13 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegistrationFormType extends AbstractType 
+class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -39,16 +40,24 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Adresse mail'
             ])
-            ->add('password', PasswordType::class, [
+            /* ->add('password', PasswordType::class, [
                 'label'=> 'Mot de passe',
                 'always_empty'=> true,
-            ])            /* ->add('isVerified') */
+            ]) */
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les mots de passe ne correspondent pas.',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options'  => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Vérification']
+            ])
+            /* ->add('isVerified') */
             /* ->add('panier') */
-            ->add('submit', SubmitType::class, [
+             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => [ 'class' => 'btn-primary' ]
             ]);
-        
     }
 
     public function configureOptions(OptionsResolver $resolver)
