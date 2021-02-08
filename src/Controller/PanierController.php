@@ -36,21 +36,16 @@ class PanierController extends AbstractController
            $total += $prix ;
             
         }
-        
-        
+
+
         // dd($listeItems, $total);
-        
+
         // SELECT * FROM produit JOIN panier ON produit.id=panier.produit_id WHERE panier.utilisateur_id = 43
 
         /* $panier = $session->get('panier', []);
         $panierWithData = [];
 
-        foreach ($panier as $id => $quantite) {
-            $panierWithData[] = [
-                'produit' => $produitRepository->find($id),
-                'quantite' => $quantite
-            ];
-        }
+
         */
         /* $total = 0;
         foreach ($listeItems as $item) {
@@ -59,7 +54,6 @@ class PanierController extends AbstractController
         }  
 
         dd($listeItems);  */
-        
         return $this->render('panier/panier.html.twig', [
             'items' => $listeItems,
             'total' => $total,
@@ -68,13 +62,36 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/add/{id}", name="cart_add")
      */
-    public function add(Produit $produit, EntityManagerInterface $entityManagerInterface)
+    public function add(Produit $produit, EntityManagerInterface $entityManagerInterface, PanierRepository $panierRepository)
     {
+        $repo = $panierRepository->findBy([
+            'utilisateur' => $this->getUser()->getId()
+        ]);
+
+
         $panier = new Panier();
+
 
         $panier->setQuantite(1);
         $panier->setUtilisateur($this->getUser());
         $panier->setProduit($produit);
+        $quantite= $panier->getQuantite();
+
+
+        //  foreach ($repo as $key => $value) {
+        //      if($repo[$key]->getId()==$produit->getId()){
+        //         $repo[]->setQuantite()
+        //      }
+        //  }
+        
+         for($i=0; $i<count($repo);$i++){
+             if ( ( $produit->getId() ) == ($repo[$i]->getProduit()->getId() )) {
+                 $quantite++;
+                 $repo[$i]->setQuantite($quantite);
+                //  dd($repo[$i]->getQuantite());
+             }  
+         }
+
 
         //dd($panier);
         $entityManagerInterface->persist($panier);
@@ -82,17 +99,14 @@ class PanierController extends AbstractController
         /* $session = $request->getSession();
 
         $panier = $session->get('panier', []);
-
-
-        if (!empty($panier[$id])) {
-            $panier[$id]++;
-        } else {
-            $panier[$id] = 1;
-        }
-
-
-
         $session->set('panier', $panier); */
+
+
+
+
+
+
+        
         return $this->redirectToRoute("accueil");
     }
 
