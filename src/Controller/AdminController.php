@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
 use App\Entity\Utilisateur;
 use App\Form\PassInfosType;
 use App\Form\RegistrationFormType;
 use App\Form\UserInfosType;
+use App\Repository\CommandeRepository;
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,9 +31,15 @@ class AdminController extends AbstractController
     /**
      * @Route("/commandes_admin", name="commandes_admin")
      */
-    public function commandesAdmin(): Response
+    public function commandesAdmin(CommandeRepository $commandeRepository, Request $request): Response
     {
-        return $this->render('admin/commandes_admin.html.twig', []);
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $commandeRepository->getAdminCommandePaginator($offset);
+
+        //dd($paginator);
+        return $this->render('admin/commandes_admin.html.twig', [
+            'commandes' => $paginator
+        ]);
     }
 
     /**

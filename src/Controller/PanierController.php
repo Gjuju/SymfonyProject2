@@ -59,6 +59,9 @@ class PanierController extends AbstractController
             'total' => $total,
         ]);
     }
+
+
+    
     /**
      * @Route("/panier/add/{id}", name="cart_add")
      */
@@ -95,8 +98,6 @@ class PanierController extends AbstractController
         };
 
 
-
-
         if (empty($repo) || $newProduit) {
             $newPanier = new Panier();
 
@@ -114,13 +115,10 @@ class PanierController extends AbstractController
         $session->set('panier', $panier); */
 
 
-
-
-
-
-
         return $this->redirectToRoute("accueil");
     }
+
+
 
     /**
      * @Route("/panier/ad/{id}", name="cart_add_fpanier")
@@ -131,9 +129,6 @@ class PanierController extends AbstractController
         $repo = $panierRepository->findBy([
             'utilisateur' => $this->getUser()->getId()
         ]);
-
-
-
 
         foreach ($repo as $ligne) {
 
@@ -152,12 +147,6 @@ class PanierController extends AbstractController
                 return $this->redirectToRoute("panier");
             }
         };
-
-
-
-
-
-
 
         return $this->redirectToRoute("panier");
     }
@@ -185,6 +174,8 @@ class PanierController extends AbstractController
         return $this->redirectToRoute("panier");
     }
 
+
+
     /**
      * @Route("/panier/remve/{id}", name="cart_remove_fpanier")
      */
@@ -209,6 +200,7 @@ class PanierController extends AbstractController
 
         return $this->redirectToRoute("panier");
     }
+
 
 
     /**
@@ -253,4 +245,6 @@ class PanierController extends AbstractController
         $this->addFlash('commandeOk', 'Félicitaions ! Votre commande est validée.');
         return $this->redirectToRoute("panier");
     }
+
+    
 }

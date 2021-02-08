@@ -20,7 +20,9 @@ class AccueilController extends AbstractController
     {
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $produitRepository->getProduitPaginator($offset);
-        
+        //dd($paginator);
+
+
         return $this->render('accueil/index.html.twig', [
             'produits' => $paginator,
             'previous' => $offset - ProduitRepository::PAGINATOR_PER_PAGE,
@@ -38,6 +40,8 @@ class AccueilController extends AbstractController
         ]);
     }
 
+
+
     /**
      * @Route("/categories", name="categories")
      */
@@ -52,6 +56,8 @@ class AccueilController extends AbstractController
             'next' => min(count($paginator), $offset + CategorieRepository::PAGINATOR_PER_PAGE),
         ]);
     }
+
+
 
     /**
      * @Route("/categorie/{id}", name="categorie")

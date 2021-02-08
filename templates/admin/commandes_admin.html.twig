@@ -9,8 +9,10 @@
     <h1 class="text-center">Commandes Admin</h1>
     
 
-    
+    {% for commande in commandes %}
+          <p>{{commande.createdAt|date("d/m/Y-H:i:s")}}</p> 
         
+    {% endfor %}
     
     
 
