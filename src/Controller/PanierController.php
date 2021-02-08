@@ -44,12 +44,7 @@ class PanierController extends AbstractController
         /* $panier = $session->get('panier', []);
         $panierWithData = [];
 
-        foreach ($panier as $id => $quantite) {
-            $panierWithData[] = [
-                'produit' => $produitRepository->find($id),
-                'quantite' => $quantite
-            ];
-        }
+
         */
         /* $total = 0;
         foreach ($listeItems as $item) {
@@ -58,7 +53,6 @@ class PanierController extends AbstractController
         }  
 
         dd($listeItems);  */
-
         return $this->render('panier/panier.html.twig', [
             'items' => $listeItems,
             'total' => $total,
@@ -112,17 +106,14 @@ class PanierController extends AbstractController
         /* $session = $request->getSession();
 
         $panier = $session->get('panier', []);
-
-
-        if (!empty($panier[$id])) {
-            $panier[$id]++;
-        } else {
-            $panier[$id] = 1;
-        }
-
-
-
         $session->set('panier', $panier); */
+
+
+
+
+
+
+        
         return $this->redirectToRoute("accueil");
     }
 
@@ -131,15 +122,27 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/remove/{id}", name="cart_remove")
      */
-    public function remove(int $id, SessionInterface $session)
+    public function remove(Produit $produit, PanierRepository $panierRepository, EntityManagerInterface $entityManagerInterface)
     {
-        $panier = $session->get('panier', []);
+        $repo = $panierRepository->findBy([
+            'utilisateur' => $this->getUser()->getId()
+        ]);
 
-        if (!empty($panier[$id])) {
-            unset($panier[$id]);
-        }
+        foreach ($repo as $ligne) {
 
-        $session->set('panier', $panier);
+            if ( $ligne->getProduit()->getId() === $produit->getId() ) {
+
+
+                $ligne->setQuantite($ligne->getQuantite() + 1);
+
+                $entityManagerInterface->remove($ligne);
+                $entityManagerInterface->flush();
+
+
+
+            }   
+
+        };
 
         return $this->redirectToRoute("panier");
     }
