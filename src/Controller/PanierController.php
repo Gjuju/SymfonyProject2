@@ -76,9 +76,12 @@ class PanierController extends AbstractController
         
         foreach ($repo as $ligne) {
 
-            if ( $ligne->getProduit()->getId() === $produit->getId() ) {
+            if ( ($ligne->getProduit()->getId() === $produit->getId())) {
 
-                //dd($panier);
+                if($produit->getStock() <= $ligne->getQuantite()){
+                    $this->addFlash('stock', 'Impossible de rajouter l\'article, il n\'y en a plus en stock');
+                    return $this->redirectToRoute("accueil");
+                }
 
                 $ligne->setQuantite($ligne->getQuantite() + 1);
 
@@ -87,9 +90,10 @@ class PanierController extends AbstractController
 
                 return $this->redirectToRoute("accueil");
                 $newProduit = false ;
-            }   
-
+            } 
         };
+
+        
 
 
         if (empty($repo) || $newProduit) {
@@ -117,6 +121,50 @@ class PanierController extends AbstractController
         return $this->redirectToRoute("accueil");
     }
 
+    /**
+     * @Route("/panier/ad/{id}", name="cart_add_fpanier")
+     */
+    public function addFromPanier(Produit $produit, PanierRepository $panierRepository, EntityManagerInterface $entityManagerInterface)
+    {
+
+        $repo = $panierRepository->findBy([
+            'utilisateur' => $this->getUser()->getId()
+        ]);
+
+
+
+        
+        foreach ($repo as $ligne) {
+
+            if (  $ligne->getProduit()->getId() === $produit->getId() ) {
+
+                if($produit->getStock() <= $ligne->getQuantite()){
+                    $this->addFlash('stock', 'Impossible de rajouter l\'article, il n\'y en a plus en stock');
+                    return $this->redirectToRoute("panier");
+                }
+
+                $ligne->setQuantite($ligne->getQuantite() + 1);
+
+                $entityManagerInterface->persist($ligne);
+                $entityManagerInterface->flush();
+
+                return $this->redirectToRoute("panier");
+
+            }
+
+
+
+        };
+
+
+
+
+
+
+        
+        return $this->redirectToRoute("panier");
+    }
+
 
 
     /**
@@ -132,9 +180,6 @@ class PanierController extends AbstractController
 
             if ( $ligne->getProduit()->getId() === $produit->getId() ) {
 
-
-                $ligne->setQuantite($ligne->getQuantite() + 1);
-
                 $entityManagerInterface->remove($ligne);
                 $entityManagerInterface->flush();
 
@@ -146,4 +191,38 @@ class PanierController extends AbstractController
 
         return $this->redirectToRoute("panier");
     }
+
+    /**
+     * @Route("/panier/remve/{id}", name="cart_remove_fpanier")
+     */
+    public function removeFromPanier(Produit $produit, PanierRepository $panierRepository, EntityManagerInterface $entityManagerInterface)
+    {
+        $repo = $panierRepository->findBy([
+            'utilisateur' => $this->getUser()->getId()
+        ]);
+
+        foreach ($repo as $ligne) {
+
+            if ( $ligne->getProduit()->getId() === $produit->getId() ) {
+                $ligne->setQuantite($ligne->getQuantite() - 1);
+                $entityManagerInterface->persist($ligne);
+                $entityManagerInterface->flush();
+
+
+
+            }
+            if($ligne->getQuantite()==0){
+                $entityManagerInterface->remove($ligne);
+                $entityManagerInterface->flush();
+            }
+
+
+        };
+
+        return $this->redirectToRoute("panier");
+        
+
+    }
+
+
 }
