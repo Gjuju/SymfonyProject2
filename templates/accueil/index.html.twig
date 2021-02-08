@@ -18,20 +18,20 @@
             </div>
             <div class="card-body bg-light text-center">
               <div class="mb-2">
-                <h6 class="font-weight-semibold mb-2">
-                  <a href="#" class="text-default mb-2" data-abc="true">
+                <h5 class="font-weight-semibold mb-2">
+                  <a class="text-uppercase mb-2 text-dark" data-abc="true">
                     {{ produit.nom }}
                   </a>
-                </h6> <a href="#" class="text-muted" data-abc="true">{{
+                </h5> <a class="text-muted" data-abc="true">{{
                     produit.description
                   }}</a>
               </div>
-              <h3 class="mb-0 font-weight-semibold">
+              <h4 class="mb-0 font-weight-semibold"  >
                 {{ produit.prix }}€
-              </h3>
-              <button type="button" class="btn btn-warning bg-cart">
-              <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter le produit au panier</a>
-                <i class="fa fa-cart-plus mr-2"></i>
+              </h4>
+              <button type="button" class="btn btn-warning: nowrap bg-cart" id="BoutonAjoutPanier">
+              <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
+                <i class="fa fa-cart-plus mr-2" style="color:white"></i>
               </button>
             </div>
           </div>
@@ -40,7 +40,7 @@
     </div>
   </div>
 
-<div class="text-center">
+<div class="NbProduit">
   {% if previous >= 0 %}
     <a href="{{
       path(

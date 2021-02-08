@@ -56,12 +56,14 @@ class AccueilController extends AbstractController
     /**
      * @Route("/categorie/{id}", name="categorie")
      */
-    public function showProductsCategories(ProduitRepository $produitRepository, int $id , Request $request): Response
+    public function showProductsCategories(Categorie $categorie, ProduitRepository $produitRepository, int $id , Request $request): Response
     {
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $produitRepository->getCategoriePaginator($id, $offset);
-        
+        $nomCategorie = $categorie->getNomCategorie();
+        // dd($paginator);
         return $this->render('accueil/categorie.html.twig', [
+            'nomCategorie' => $nomCategorie,
             'produits' => $paginator,
             'previous' => $offset - ProduitRepository::PAGINATOR_PER_PAGE,
             'next' => min(count($paginator), $offset + ProduitRepository::PAGINATOR_PER_PAGE),
