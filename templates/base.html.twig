@@ -46,75 +46,7 @@
   </head>
 
   <body>
-    {# <div class="container-fluid" >
-
-    <nav class="navbar navbar-expand" >
-        <div class="navbar-header">
-          <button type="button"
-            class="navbar-toggle"
-            data-toggle="collapse"
-            data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-
-      
-        </div>
-        <div class="collapse navbar-collapse align-middle" id="myNavbar">
-          <ul class="nav navbar-nav">
-            <li><a href={{path('categories')}}>Catégorie</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-
-            <!-- Signin & Signup -->
-            <li>
-            {% if is_granted('ROLE_ADMIN') %}
-              <a href={{path('compte')}}>
-                <button type="button"
-                  class="btn btn-success btn-md"
-                  data-toggle="modal"
-                  data-target=".login-register-form">
-                  Mon Compte
-                </button>
-                <span class="glyphicon glyphicon-user"></span>
-              </a>
-              {% elseif is_granted('ROLE_USER') %}
-              <a href={{path('compte')}}>
-                <button type="button"
-                  class="btn btn-success btn-md"
-                  data-toggle="modal"
-                  data-target=".login-register-form">
-                  Mon Compte
-                </button>
-                <span class="glyphicon glyphicon-user"></span>
-              </a>
-            {% else %}
-              <a href={{path('app_login')}}>
-                <button type="button"
-                  class="btn btn-success btn-md"
-                  data-toggle="modal"
-                  data-target=".login-register-form">
-                  Connexion
-                </button>
-                <span class="glyphicon glyphicon-user"></span>
-              </a>
-            {% endif %}
-
-              
-            </li>
-
-            <li>
-                <a href={{path('panier')}}><button type="button" class="btn btn-success btn-md">
-                  <span class="glyphicon glyphicon-shopping-cart"></span> Panier
-                </button></a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav> #}
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand align-middle"  href="{{path('accueil')}}">
           <img src="\img\logo-nocamaju.PNG" alt="logo nocamaju"></a>
       <button class="navbar-toggler"

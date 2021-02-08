@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Accueil
+  {{nomCategorie}}
 {% endblock %}
 
 {% block body %}
+<div class="TitreCategorie">
+  <h1>{{nomCategorie}}</h1>
+</div>
   <div class="container d-flex justify-content-center mt-50 mb-50">
+  
+     
     <div class="row">
       {% for produit in produits %}
         <div class="col-md-4 mt-2">
@@ -19,7 +24,7 @@
             <div class="card-body bg-light text-center">
               <div class="mb-2">
                 <h6 class="font-weight-semibold mb-2">
-                  <a href="#" class="text-default mb-2" data-abc="true">
+                  <a href="#" class="text-uppercase mb-2 text-dark" data-abc="true">
                     {{ produit.nom }}
                   </a>
                 </h6> <a href="#" class="text-muted" data-abc="true">{{
@@ -29,9 +34,9 @@
               <h3 class="mb-0 font-weight-semibold">
                 {{ produit.prix }}€
               </h3>
-              <button type="button" class="btn btn-warning bg-cart">
-              <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter le produit au panier</a>
-                <i class="fa fa-cart-plus mr-2"></i>
+              <button type="button" class="btn btn-warning bg-cart" id="BoutonAjoutPanier">
+              <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
+                <i class="fa fa-cart-plus mr-2" style="color:white"></i>
               </button>
             </div>
           </div>
