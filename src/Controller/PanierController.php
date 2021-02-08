@@ -93,8 +93,7 @@ class PanierController extends AbstractController
          }
 
 
-        //dd($panier);
-        $entityManagerInterface->persist($panier);
+            $newPanier->setUtilisateur($this->getUser());
         $entityManagerInterface->flush();
         /* $session = $request->getSession();
 
