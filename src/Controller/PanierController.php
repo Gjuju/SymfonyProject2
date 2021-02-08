@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Commande;
 use App\Entity\Panier;
 use App\Entity\Produit;
 use App\Entity\Utilisateur;
@@ -71,14 +72,14 @@ class PanierController extends AbstractController
         //dd($repo);
 
         //dd(empty($repo));
-        
-        $newProduit = true ;
-        
+
+        $newProduit = true;
+
         foreach ($repo as $ligne) {
 
-            if ( ($ligne->getProduit()->getId() === $produit->getId())) {
+            if (($ligne->getProduit()->getId() === $produit->getId())) {
 
-                if($produit->getStock() <= $ligne->getQuantite()){
+                if ($produit->getStock() <= $ligne->getQuantite()) {
                     $this->addFlash('stock', 'Impossible de rajouter l\'article, il n\'y en a plus en stock');
                     return $this->redirectToRoute("accueil");
                 }
@@ -89,11 +90,11 @@ class PanierController extends AbstractController
                 $entityManagerInterface->flush();
 
                 return $this->redirectToRoute("accueil");
-                $newProduit = false ;
-            } 
+                $newProduit = false;
+            }
         };
 
-        
+
 
 
         if (empty($repo) || $newProduit) {
@@ -117,7 +118,7 @@ class PanierController extends AbstractController
 
 
 
-        
+
         return $this->redirectToRoute("accueil");
     }
 
@@ -133,12 +134,12 @@ class PanierController extends AbstractController
 
 
 
-        
+
         foreach ($repo as $ligne) {
 
-            if (  $ligne->getProduit()->getId() === $produit->getId() ) {
+            if ($ligne->getProduit()->getId() === $produit->getId()) {
 
-                if($produit->getStock() <= $ligne->getQuantite()){
+                if ($produit->getStock() <= $ligne->getQuantite()) {
                     $this->addFlash('stock', 'Impossible de rajouter l\'article, il n\'y en a plus en stock');
                     return $this->redirectToRoute("panier");
                 }
@@ -149,11 +150,7 @@ class PanierController extends AbstractController
                 $entityManagerInterface->flush();
 
                 return $this->redirectToRoute("panier");
-
             }
-
-
-
         };
 
 
@@ -161,7 +158,7 @@ class PanierController extends AbstractController
 
 
 
-        
+
         return $this->redirectToRoute("panier");
     }
 
@@ -178,15 +175,11 @@ class PanierController extends AbstractController
 
         foreach ($repo as $ligne) {
 
-            if ( $ligne->getProduit()->getId() === $produit->getId() ) {
+            if ($ligne->getProduit()->getId() === $produit->getId()) {
 
                 $entityManagerInterface->remove($ligne);
                 $entityManagerInterface->flush();
-
-
-
-            }   
-
+            }
         };
 
         return $this->redirectToRoute("panier");
@@ -203,26 +196,61 @@ class PanierController extends AbstractController
 
         foreach ($repo as $ligne) {
 
-            if ( $ligne->getProduit()->getId() === $produit->getId() ) {
+            if ($ligne->getProduit()->getId() === $produit->getId()) {
                 $ligne->setQuantite($ligne->getQuantite() - 1);
                 $entityManagerInterface->persist($ligne);
                 $entityManagerInterface->flush();
-
-
-
             }
-            if($ligne->getQuantite()==0){
+            if ($ligne->getQuantite() == 0) {
                 $entityManagerInterface->remove($ligne);
                 $entityManagerInterface->flush();
             }
-
-
         };
 
         return $this->redirectToRoute("panier");
-        
-
     }
 
 
+    /**
+     * @Route("/panier/commande", name="commande")
+     */
+    public function commande(PanierRepository $panierRepository, ProduitRepository $produitRepository, EntityManagerInterface $entityManagerInterface)
+    {
+
+        $listeproduits = $produitRepository->findAll();
+        $repo = $panierRepository->findBy([
+            'utilisateur' => $this->getUser()->getId()
+        ]);
+
+        $commande = new Commande();
+
+        //dd($repo, $commande); 
+
+        foreach ($repo as $value) {
+            $commande = new Commande();
+            $commande->setProduitId($value->getProduit()->getId());
+            $commande->setProduitNom($value->getProduit()->getNom());
+            $commande->setProduitPrix($value->getProduit()->getPrix());
+            $commande->setProduitQuantite($value->getQuantite());
+            $commande->setUtilisateur($this->getUser());
+            $commande->setCreatedAt(new \DateTime());
+
+            $entityManagerInterface->persist($commande);
+            $entityManagerInterface->remove($value);
+        };
+
+
+        $entityManagerInterface->flush();
+
+        /* $panier = $session->get('panier', []);
+
+        if (!empty($panier[$id])) {
+            unset($panier[$id]);
+        }
+
+        $session->set('panier', $panier);
+ */
+        $this->addFlash('commandeOk', 'Félicitaions ! Votre commande est validée.');
+        return $this->redirectToRoute("panier");
+    }
 }
