@@ -22,24 +22,23 @@ class PanierController extends AbstractController
      */
     public function Panier(PanierRepository $panierRepository)
     {
-        
+
         /* $listeItems = $panierRepository->findAll(); */
         $listeItems = $panierRepository->findBy([
             'utilisateur' => $this->getUser()->getId()
         ]);
-        
-        
-        $total = 0 ;
+
+
+        $total = 0;
         foreach ($listeItems as $key => $value) {
-            
-           $prix = $listeItems[$key]->getProduit()->getPrix() * $listeItems[$key]->getQuantite() ;
-           $total += $prix ;
-            
+
+            $prix = $listeItems[$key]->getProduit()->getPrix() * $listeItems[$key]->getQuantite();
+            $total += $prix;
         }
-        
-        
+
+
         // dd($listeItems, $total);
-        
+
         // SELECT * FROM produit JOIN panier ON produit.id=panier.produit_id WHERE panier.utilisateur_id = 43
 
         /* $panier = $session->get('panier', []);
@@ -59,7 +58,7 @@ class PanierController extends AbstractController
         }  
 
         dd($listeItems);  */
-        
+
         return $this->render('panier/panier.html.twig', [
             'items' => $listeItems,
             'total' => $total,
@@ -68,17 +67,50 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/add/{id}", name="cart_add")
      */
-    public function add(Produit $produit, EntityManagerInterface $entityManagerInterface)
+    public function add(Produit $produit, PanierRepository $panierRepository, EntityManagerInterface $entityManagerInterface)
     {
-        $panier = new Panier();
 
-        $panier->setQuantite(1);
-        $panier->setUtilisateur($this->getUser());
-        $panier->setProduit($produit);
+        $repo = $panierRepository->findBy([
+            'utilisateur' => $this->getUser()->getId()
+        ]);
 
-        //dd($panier);
-        $entityManagerInterface->persist($panier);
-        $entityManagerInterface->flush();
+        //dd($repo);
+
+        //dd(empty($repo));
+        
+        $newProduit = false ;
+        
+        foreach ($repo as $ligne) {
+
+            if ( $ligne->getProduit()->getId() === $produit->getId() ) {
+
+                //dd($panier);
+
+                $ligne->setQuantite($ligne->getQuantite() + 1);
+
+                $entityManagerInterface->persist($ligne);
+                $entityManagerInterface->flush();
+
+                return $this->redirectToRoute("accueil");
+                $newProduit = false ;
+            } 
+
+            
+
+        };
+
+
+        if (empty($repo || $newProduit === true)) {
+            $newPanier = new Panier();
+
+            $newPanier->setQuantite(1);
+            $newPanier->setUtilisateur($this->getUser());
+            $newPanier->setProduit($produit);
+
+            //dd($newPanier);
+            $entityManagerInterface->persist($newPanier);
+            $entityManagerInterface->flush();
+        }
         /* $session = $request->getSession();
 
         $panier = $session->get('panier', []);
@@ -101,7 +133,7 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/remove/{id}", name="cart_remove")
      */
-    public function remove($id, SessionInterface $session)
+    public function remove(int $id, SessionInterface $session)
     {
         $panier = $session->get('panier', []);
 
