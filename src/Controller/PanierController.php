@@ -78,7 +78,7 @@ class PanierController extends AbstractController
 
         //dd(empty($repo));
         
-        $newProduit = false ;
+        $newProduit = true ;
         
         foreach ($repo as $ligne) {
 
@@ -93,14 +93,12 @@ class PanierController extends AbstractController
 
                 return $this->redirectToRoute("accueil");
                 $newProduit = false ;
-            } 
-
-            
+            }   
 
         };
 
 
-        if (empty($repo || $newProduit === true)) {
+        if (empty($repo) || $newProduit) {
             $newPanier = new Panier();
 
             $newPanier->setQuantite(1);
