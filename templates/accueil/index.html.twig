@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block body %}
+{% for message in app.flashes('stock') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
   <div class="container d-flex justify-content-center mt-50 mb-50">
     <div class="row">
       {% for produit in produits %}
