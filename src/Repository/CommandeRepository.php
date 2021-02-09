@@ -35,8 +35,6 @@ class CommandeRepository extends ServiceEntityRepository
         
         $query->select('c')
             //->addSelect('SUM(c.produit_prix * c.produit_quantite) as total')
-            /* ->andWhere('c.utilisateur = :id')
-            ->setParameter('id', $id) */
             ->groupBy('c.createdAt')
             ->setMaxResults(self::PAGINATOR_PER_PAGE)
             ->setFirstResult($offset)
