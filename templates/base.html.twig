@@ -120,8 +120,12 @@
                 <span class="glyphicon glyphicon-user"></span>
               </a>
             {% endif %}
-                         <a href={{path('panier')}}><button type="button" class="btn btn-warning btn-md">
-                         <img src="/img/icons8-caddie-24.png" alt="Logo Panier"> Panier </button></a>
+            {% if (is_granted('ROLE_USER')) or (is_granted('ROLE_ADMIN'))   %}
+            <a href={{path('panier')}}><button type="button" class="btn btn-warning btn-md">
+            {% else %}
+            <a href={{path('cart_pasco_panier')}}><button type="button" class="btn btn-warning btn-md">
+            {% endif %}
+            <img src="/img/icons8-caddie-24.png" alt="Logo Panier"> Panier </button></a>
                       
             </ul>
       </div>
@@ -158,9 +162,16 @@
             Contact
           </h5>
           <ul class="list-unstyled text-small">
-            <li><a class="text-muted" href="#">Nous contacter</a></li>
-            <li><a class="text-muted" href="#">Instagram</a></li>
-            <li><a class="text-muted" href="#">Facebook</a></li>
+            <li>
+            <img src="https://img.icons8.com/color/20/000000/apple-mail.png"/>
+            <a class="text-muted" href="#">Nous contacter</a></li>
+            <li>
+              <img src="https://img.icons8.com/fluent/20/000000/instagram-new.png" href="#">
+              <a class="text-muted" href="#">Instagram</a>
+            </li>
+            <li>
+            <img src="https://img.icons8.com/color/20/000000/facebook.png" href="#">
+            <a class="text-muted" href="#">Facebook</a></li>
           </ul>
         </div>
         <div class="col-sm-3">

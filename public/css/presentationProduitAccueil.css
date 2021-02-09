@@ -93,8 +93,6 @@ a {
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 }
 
-#BoutonAjoutPanier:hover {
-}
 
 
 
@@ -172,4 +170,10 @@ margin-right: 30px;
 #BlocProduitPageDetails{
   height: 580px;
 
+}
+/* Page détails produit */
+
+#CentragePhoto{
+display: flex;
+align-items: center;
 }

@@ -37,12 +37,12 @@
           <tr>
             <td>{{ item.produit.nom }}</td>
             <td>{{ item.produit.prix }} €</td>
-            <td> <a href="{{ path('cart_remove_fpanier', {id: item.produit.id})}}" class="btn btn-success btn-sm" >-
-              </a> {{ item.quantite }} <a href="{{ path('cart_add_fpanier', {id: item.produit.id})}}" class="btn btn-success btn-sm" >+
+            <td> <a href="{{ path('cart_rmvpasco_fpanier', {id: item.produit.id})}}" class="btn btn-success btn-sm" >-
+              </a> {{ item.quantite }} <a href="{{ path('cart_addpasco_fpanier', {id: item.produit.id})}}" class="btn btn-success btn-sm" >+
               </a></td>
             <td>{{ item.produit.prix * item.quantite }} €</td>
             <td>
-              <a href="{{ path('cart_remove', {id: item.produit.id})}}" class="btn btn-danger btn-sm" >Supprimer
+              <a href="{{ path('cart_removepasco', {id: item.produit.id})}}" class="btn btn-danger btn-sm" >Supprimer
               </a>
             </td>
           </tr>
@@ -58,7 +58,7 @@
       </tfoot>
     </table>
     <div class="text-center">
-      <a href={{path('commande')}} class="btn btn-success">Valider la commande</a>
+    <a href={{path('app_register')}} class="btn btn-success">Valider la commande</a>
     </div>
   {% else %}
     <p>Surprise, c'est vide !</p>
