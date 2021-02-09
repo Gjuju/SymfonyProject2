@@ -219,7 +219,7 @@ class PanierController extends AbstractController
         if(!empty($panier[$id])){
             $panier[$id]--;
         }
-        if($panier[$id]<=1){
+        if($panier[$id]<1){
             unset($panier[$id]);
         }
         

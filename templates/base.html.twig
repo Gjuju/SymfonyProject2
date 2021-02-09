@@ -120,9 +120,7 @@
                 <span class="glyphicon glyphicon-user"></span>
               </a>
             {% endif %}
-            {% if is_granted('ROLE_USER') %}
-            <a href={{path('panier')}}><button type="button" class="btn btn-warning btn-md">
-            {% elseif is_granted('ROLE_ADMIN') %}
+            {% if (is_granted('ROLE_USER')) or (is_granted('ROLE_ADMIN'))   %}
             <a href={{path('panier')}}><button type="button" class="btn btn-warning btn-md">
             {% else %}
             <a href={{path('cart_pasco_panier')}}><button type="button" class="btn btn-warning btn-md">

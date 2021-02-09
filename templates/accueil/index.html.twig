@@ -34,6 +34,7 @@
               <h4 class="mb-0 font-weight-semibold"  >
                 {{ produit.prix }}€
               </h4>
+              {% if is_granted('ROLE_USER') %}
               <button type="button" class="btn btn-success" id="BoutonAjoutPanier">
               <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
               {% else %}
