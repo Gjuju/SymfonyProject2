@@ -36,6 +36,7 @@ class CreationProduitForm extends AbstractType
             ])
 
             ->add('is_active', CheckboxType::class,[
+                'label' => 'Activé',
                 'required' => false
             ])
             ->add('submit', SubmitType::class, [
