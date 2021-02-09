@@ -38,7 +38,7 @@
               <button type="button" class="btn btn-success" id="BoutonAjoutPanier">
               <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
               {% else %}
-              <a href="{{ path('cart_addpasco_panier', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
+              <a href="{{ path('cart_addpasco_panier', {'id': produit.id }) }}" class="btn btn-success" id="BoutonAjoutPanier">Ajouter au panier</a>
               {% endif %}
               
                 <i class="fa fa-cart-plus mr-2" style="color:white"></i>
