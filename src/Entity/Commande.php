@@ -126,6 +126,6 @@ class Commande
 
     public function __toString(): string
     {
-        return $this->id;
+        return $this->createdAt->format('d-m-Y H:i:s'). ' ' .$this->utilisateur;
     }
 }

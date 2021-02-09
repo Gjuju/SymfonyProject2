@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block body %}
+<div class="TitreCategorie">
+  <h1>Les Catégories</h1>
+</div>
   <div class="container d-flex justify-content-center mt-50 mb-50">
     <div class="row">
       {% for categorie in categories %}
@@ -29,6 +32,7 @@
       {% endfor %}
     </div>
   </div>
+<div class="NbProduit">
 
   {% if previous >= 0 %}
     <a href="{{
@@ -57,4 +61,5 @@
       >>
     </a>
   {% endif %}
+  </div>
 {% endblock %}

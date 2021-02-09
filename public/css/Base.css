@@ -1,6 +1,5 @@
 body {
-  /* height: 100vh; */
-  /* width: 100vw; */
+  height: 100vh;
 }
 
 .container-fluid {
@@ -28,8 +27,7 @@ body {
   height: 100px;
 }
 
-.navbar ul {
-}
+
 
 /* Remove the jumbotron's default bottom margin */
 .jumbotron {
@@ -43,8 +41,8 @@ footer {
   padding: 15px;
   /* position: fixed; */
   bottom: 0;
-  width: 100%;
 }
+
 
 /* logo */
 
@@ -62,6 +60,7 @@ footer {
 /* Page Catégorie */
 
 .TitreCategorie {
+  margin-top: 30px;
 }
 
 .TitreCategorie h1 {

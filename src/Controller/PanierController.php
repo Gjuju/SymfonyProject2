@@ -301,9 +301,11 @@ class PanierController extends AbstractController
             $commande->setProduitNom($value->getProduit()->getNom());
             $commande->setProduitPrix($value->getProduit()->getPrix());
             $commande->setProduitQuantite($value->getQuantite());
+            $value->getProduit()->setStock($value->getProduit()->getStock() - $value->getQuantite() );
             $commande->setUtilisateur($this->getUser());
             $commande->setCreatedAt(new \DateTime());
 
+            $entityManagerInterface->persist($value->getProduit());
             $entityManagerInterface->persist($commande);
             $entityManagerInterface->remove($value);
         };
