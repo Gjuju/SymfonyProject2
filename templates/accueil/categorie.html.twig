@@ -8,7 +8,7 @@
 <div class="TitreCategorie">
   <h1>{{nomCategorie}}</h1>
 </div>
-  <div class="container d-flex justify-content-center mt-50 mb-50">
+  <div class="container mt-50 mb-50">
   
      
     <div class="row">
@@ -34,7 +34,7 @@
               <h3 class="mb-0 font-weight-semibold">
                 {{ produit.prix }}€
               </h3>
-              <button type="button" class="btn btn-warning bg-cart" id="BoutonAjoutPanier">
+                  <button type="button" class="btn btn-success" id="BoutonAjoutPanier">
               <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
                 <i class="fa fa-cart-plus mr-2" style="color:white"></i>
               </button>
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-<div class="text-center">
+<div class="NbProduit">
   {% if previous >= 0 %}
     <a href="{{
       path(

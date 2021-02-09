@@ -31,6 +31,8 @@
 }
 
 .card-body {
+  box-sizing: border-box;
+  width: 100%;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   padding: 1.25rem;
@@ -38,10 +40,22 @@
   border-radius: 20px;
 }
 
+.card-body img{
+max-width: 400px;
+max-height: 400px;
+}
+
 .card-img {
-  width: 100%;
+  width: auto;
   height: 200px;
 }
+
+.ImgDetailProduit{
+max-width: 300px;
+max-height: 100%;
+
+}
+
 
 a.card-link {
   color: white;
@@ -80,4 +94,82 @@ a {
 }
 
 #BoutonAjoutPanier:hover {
+}
+
+
+
+#AjoutQuantite{
+margin-left: 30px;
+margin-right: 30px;
+
+}
+.Description {
+  padding: 10px;
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  color: #7b7b7b;
+  border-radius: 10px 10px 10px 10px;
+
+}
+
+.ProduitStock p{
+  margin-top: 30px;
+}
+
+.bloc_left_price {
+  color: #c01508;
+  text-align: center;
+  font-weight: bold;
+  font-size: 150%;
+}
+.category_block li:hover {
+  background-color: #007bff;
+}
+.category_block li:hover a {
+  color: #ffffff;
+}
+.category_block li a {
+  color: #343a40;
+}
+.add_to_cart_block .price {
+  color: #c01508;
+  text-align: center;
+  font-weight: bold;
+  font-size: 200%;
+  margin-bottom: 0;
+}
+.add_to_cart_block {
+ padding-left: 60px;
+ padding-right: 40px;
+ margin-bottom: 50px;
+ min-width: 400px;
+}
+.product_rassurance {
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  color: #6c757d;
+  border-radius: 20px;
+
+}
+.product_rassurance .list-inline {
+  margin-bottom: 0;
+  text-transform: uppercase;
+  text-align: center;
+}
+.product_rassurance .list-inline li:hover {
+  color: #343a40;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+#SizeBloc{
+  height: 550px;
+  width: 400px;
+}
+#BlocProduitPageDetails{
+  height: 580px;
+
 }
