@@ -29,9 +29,9 @@
                     <div class="col-2">
                     </div>
                     <div class="col-2 text-right">
-                    <a href="#"><button class="btn btn-lg btn-primary" type="button">Détails</button></a>
+                    <a href={{path('commande_detail', {id: commande.utilisateur.id , createdAt: commande.createdAt|date("Y-m-d H:i:s"), idCommande: commande.id})}}><button class="btn btn-lg btn-primary" type="button">Détails</button></a>
                     </div>
-                    
+                     
                     
 				</div>
 			</div>

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Votre Panier
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="bg-light p-3">
+			<h1>
+				Détails de la commande numero : {{idcommande}} </h1>
+			<div>
+				<h1>{{utilisateur.username}}</h1>
+				<h4>{{utilisateur.address}}</h4>
+				<h4>{{utilisateur.phonenumber}}</h4>
+				<h4>{{utilisateur.email}}</h4>
+			</div>
+		</div>
+
+		{% if commande | length > 0 %}
+			<table class='table'>
+				<thead>
+					<tr>
+						<th>Produit</th>
+						<th>Prix</th>
+						<th>Quantité</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					{% for item in commande %}
+						<tr>
+							<td>{{ item.produitnom }}</td>
+							<td>{{ item.produitprix }}
+								€</td>
+							<td>{{ item.produitquantite }}
+							</td>
+							<td>{{ item.produitprix * item.produitquantite }}
+								€</td>
+						</tr>
+
+					{% endfor %}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="3" class="text-right font-weight-bold">Total :</td>
+						<td>{{total}}
+							€</td>
+						<td></td>
+					</tr>
+				</tfoot>
+			</table>
+		{% else %}
+			<p>Surprise, c'est vide !</p>
+		{% endif %}
+	</div>
+{% endblock %}
