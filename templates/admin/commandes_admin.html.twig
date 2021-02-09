@@ -12,7 +12,7 @@
 	{% for commande in commandes %}
 		<div class="container">
 			<div class="card mb-3" style="height: 100px">
-				<div class="row no-gutters">
+				<div class="row no-gutters align-items-center justify-content-around">
 					<div class="col-2">
 						<h6 class="ml-3">Date-Heure :</h6>
 						<h3 class="card-text ml-2">{{commande.createdAt|date("d/m/Y H:i:s")}}</h3>
@@ -28,7 +28,7 @@
 					</div>
                     <div class="col-2">
                     </div>
-                    <div class="col-2">
+                    <div class="col-2 text-right">
                     <a href="#"><button class="btn btn-lg btn-primary" type="button">Détails</button></a>
                     </div>
                     
