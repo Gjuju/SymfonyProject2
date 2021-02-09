@@ -176,4 +176,5 @@ margin-right: 30px;
 #CentragePhoto{
 display: flex;
 align-items: center;
+justify-content: center;
 }

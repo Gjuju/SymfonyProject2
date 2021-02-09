@@ -5,18 +5,20 @@
 {% endblock %}
 
 {% block body %}
-<div class="container text-center">
-    <h1 class="">
-        produits admin
+<div class="container-fluid text-center"style="padding:0">
+    <h1 class="TitreCategorie">
+        Produits admin
     </h1>
-    <div>
+    <div style="margin-bottom:30px">
     <a href={{path('creation_produit')}}><button type="button" class="btn btn-primary mt-3 mb-3">Ajouter Produit</button></a>
     </div>
+    <div class="container">
+        
         {% for produit in produits %}
-        <div class="card mb-3" style="height: 100px" >
+        <div class="card d-flex justify-content-center " style="height: 13vh; padding:0 100px">
             <div class="row no-gutters">
                 <div class="col-2">
-                    <img src={{produit.photo}} class="rounded" style="height: 100px" alt="...">
+                    <img src={{produit.photo}} class="rounded" style="height: 80px" alt="...">
                 </div>
                 <div class="col-2">
                     <h6>Nom</h6>
@@ -45,4 +47,5 @@
         </div>
     </div>
     {% endfor %}
+    </div>
 {% endblock %}
