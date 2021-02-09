@@ -53,10 +53,25 @@ class AdminController extends AbstractController
     /**
      * @Route("/commandes_user", name="commandes_user")
      */
-    public function commandesUser(): Response
+    public function commandesUser(CommandeRepository $commandeRepository, Request $request): Response
     {
-        return $this->render('admin/commandes_user.html.twig', []);
+        $id = $this->getUser()->getId();
+
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $commandeRepository->getUserCommandePaginator($offset, $id);
+
+        //dd($paginator);
+        $array = [];
+        foreach ($paginator as $value) {
+            array_push($array, $value);
+        }
+
+
+        return $this->render('admin/commandes_user.html.twig', [
+            'commandes' => $paginator
+        ]);
     }
+
 
     /**
      * @Route("/commande_detail/{id}/{idCommande}/{createdAt}", name="commande_detail")

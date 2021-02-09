@@ -32,7 +32,7 @@ class CommandeRepository extends ServiceEntityRepository
         // SELECT *, SUM(produit_prix * produit_quantite) as total FROM commande GROUP BY created_at DESC
         $query = $this->createQueryBuilder('c');
 
-        $id = 40;
+        
         $query->select('c')
             //->addSelect('SUM(c.produit_prix * c.produit_quantite) as total')
             /* ->andWhere('c.utilisateur = :id')
@@ -46,7 +46,25 @@ class CommandeRepository extends ServiceEntityRepository
         return new Paginator($query);
     }
 
+    public function getUserCommandePaginator(int $offset, int $id): Paginator
+    {
 
+        // SELECT *, SUM(produit_prix * produit_quantite) as total FROM commande GROUP BY created_at
+        // SELECT *, SUM(produit_prix * produit_quantite) as total FROM commande GROUP BY created_at DESC
+        $query = $this->createQueryBuilder('c');
+
+        $query->select('c')
+            //->addSelect('SUM(c.produit_prix * c.produit_quantite) as total')
+            ->andWhere('c.utilisateur = :id')
+            ->setParameter('id', $id)
+            ->groupBy('c.createdAt')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery();
+            //->getArrayResult();
+
+        return new Paginator($query);
+    }
 
     public function getDetailCommandePaginator(int $user, string $createdAt): Paginator
     {
