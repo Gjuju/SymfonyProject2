@@ -7,20 +7,23 @@
 {% block body %}
 	<div class="container">
 		<div class="bg-light p-3  mt-3">
-			<h2>
-				Détails de la commande numero :
-				{{idcommande}}
-			</h2>
-			<div class='row  mt-3'>
-				<div class='col-8 text-right'>
+			<div>
+				<h2>
+					Détails de la commande numero :
+					{{idcommande}}
+				</h2>
+			</div>
+			<div class='row  mt-5'>
+				<div class='col-2 text-right'>
 					<h3>Identité :</h3>
 					<h5>Adresse :</h5>
 					<h5>Tel :</h5>
 					<h5>E-mail:</h5>
 				</div>
 
-				<div class="col-4">
-					<h3>{{utilisateur.firstName}} {{utilisateur.lastName}}</h3>
+				<div class="col-10">
+					<h3>{{utilisateur.firstName}}
+						{{utilisateur.lastName}}</h3>
 					<h5>{{utilisateur.address}}</h5>
 					<h5>{{utilisateur.phonenumber}}</h5>
 					<h5>{{utilisateur.email}}</h5>
