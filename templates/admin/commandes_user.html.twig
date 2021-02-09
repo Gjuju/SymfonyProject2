@@ -1,17 +1,43 @@
 {% extends 'base.html.twig' %}
 
 
-
-{% block title %}Détail produit{% endblock %}
+{% block title %}Détail produit
+{% endblock %}
 
 {% block body %}
 
-    <h1 class="text-center">Commandes User</h1>
-    
+	<h1 class="text-center mb-5">Vos commandes : </h1>
 
-    
-     
-    
-    
+
+	{% for commande in commandes %}
+		<div class="container">
+			<div class="card mb-3" style="height: 100px">
+				<div class="row no-gutters align-items-center justify-content-around">
+					<div class="col-2">
+						<h6 class="ml-3">Date-Heure :</h6>
+						<h3 class="card-text ml-2">{{commande.createdAt|date("d/m/Y H:i:s")}}</h3>
+					</div>
+					<div class="col-2 ml-3">
+						<h6>Nom-Prénom :</h6>
+						<h5 class="card-text">{{commande.utilisateur}}</h5>
+					</div>
+
+					<div class="col-2">
+						<h6 class="mr-5">ID commande :</h6>
+						<h5 class="card-text ml-5">{{commande.id}}</h5>
+					</div>
+					<div class="col-2"></div>
+					<div class="col-2 text-right">
+						<a href={{path('commande_detail', {id: commande.utilisateur.id , createdAt: commande.createdAt|date("Y-m-d H:i:s"), idCommande: commande.id} )}}>
+							<button class="btn btn-lg btn-primary" type="button">Détails</button>
+						</a>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+
 
 {% endblock %}

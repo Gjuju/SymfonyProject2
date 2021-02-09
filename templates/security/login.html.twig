@@ -23,7 +23,7 @@
         <h1 class="h3 mb-3 font-weight-normal">
           Connectez vous :
         </h1>
-        <label for="inputUsername">Username</label>
+        <label for="inputUsername">Nom</label>
         <input type="text"
           value="{{ last_username }}"
           name="username"
@@ -48,19 +48,19 @@
 
         <div class="checkbox mb-3">
             <label>
-                <input type="checkbox" name="_remember_me"> Remember me
+                <input type="checkbox" name="_remember_me"> Rester connecté
             </label>
         </div>
     
     
-            <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary" type="submit">Valider</button>
       </form>
     </div>
     <div>
     <h1 class="h3 mb-3 font-weight-normal">
           Pas encore enregistré ?
         </h1>
-        <a href={{path('app_register')}}><button class="btn btn-lg btn-primary" type="button">Register</button></a>
+        <a href={{path('app_register')}}><button class="btn btn-lg btn-primary" type="button">Créer un compte</button></a>
         
     </div>
   </div>
