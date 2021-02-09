@@ -35,7 +35,12 @@
                 {{ produit.prix }}€
               </h4>
               <button type="button" class="btn btn-warning: nowrap bg-cart" id="BoutonAjoutPanier">
+              {% if (is_granted('ROLE_USER')) or (is_granted('ROLE_ADMIN')) %}
               <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
+              {% else %}
+              <a href="{{ path('cart_addpasco_panier', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
+              {% endif %}
+              
                 <i class="fa fa-cart-plus mr-2" style="color:white"></i>
               </button>
             </div>

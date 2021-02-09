@@ -23,8 +23,6 @@ class PanierController extends AbstractController
      */
     public function Panier(PanierRepository $panierRepository)
     {
-
-        /* $listeItems = $panierRepository->findAll(); */
         $listeItems = $panierRepository->findBy([
             'utilisateur' => $this->getUser()->getId()
         ]);
@@ -37,23 +35,6 @@ class PanierController extends AbstractController
             $total += $prix;
         }
 
-
-        // dd($listeItems, $total);
-
-        // SELECT * FROM produit JOIN panier ON produit.id=panier.produit_id WHERE panier.utilisateur_id = 43
-
-        /* $panier = $session->get('panier', []);
-        $panierWithData = [];
-
-
-        */
-        /* $total = 0;
-        foreach ($listeItems as $item) {
-            $totalItem = $item['produit']->getPrix() * $item['quantite'];
-            $total += $totalItem;
-        }  
-
-        dd($listeItems);  */
         return $this->render('panier/panier.html.twig', [
             'items' => $listeItems,
             'total' => $total,
@@ -67,15 +48,15 @@ class PanierController extends AbstractController
      */
     public function add(Produit $produit, PanierRepository $panierRepository, EntityManagerInterface $entityManagerInterface)
     {
+        if( ( !$this->isGranted('ROLE_USER') ) && (!$this->isGranted('ROLE_ADMIN')) ){
+            return $this->redirectToRoute("cart_addpasco_panier");
+        }
 
+        
         $repo = $panierRepository->findBy([
             'utilisateur' => $this->getUser()->getId()
         ]);
-
-        //dd($repo);
-
-        //dd(empty($repo));
-
+ 
         $newProduit = true;
 
         foreach ($repo as $ligne) {
@@ -104,17 +85,9 @@ class PanierController extends AbstractController
             $newPanier->setQuantite(1);
             $newPanier->setUtilisateur($this->getUser());
             $newPanier->setProduit($produit);
-
-            //dd($newPanier);
             $entityManagerInterface->persist($newPanier);
             $entityManagerInterface->flush();
         }
-        /* $session = $request->getSession();
-
-        $panier = $session->get('panier', []);
-        $session->set('panier', $panier); */
-
-
         return $this->redirectToRoute("accueil");
     }
 
@@ -150,6 +123,111 @@ class PanierController extends AbstractController
 
         return $this->redirectToRoute("panier");
     }
+
+
+    /**
+     * @Route("/panierpasco", name="cart_pasco_panier")
+     */
+    public function panierPasco(SessionInterface $session, ProduitRepository $produitRepository){
+        $panier = $session->get('panier', []);
+
+        $panierWithData=[];
+
+        foreach($panier as $id =>$quantite){
+            $panierWithData[]= [
+                'produit'=>$produitRepository->find($id),
+                'quantite'=>$quantite
+            ];
+        }
+        $total = 0;
+        foreach($panierWithData as $item){
+            $totalItem= $item['produit']->getPrix() * $item['quantite'];
+            $total += $totalItem;
+        }
+
+        return $this->render('panier/panierpasco.html.twig', [
+            'items' => $panierWithData,
+            'total' => $total
+        ]);
+    }
+
+
+
+
+    /**
+     * @Route("/panier/adpascof/{id}", name="cart_addpasco_fpanier")
+     */
+    public function addpascoFromPanier($id, SessionInterface $session){
+
+        $panier= $session->get('panier', []);
+
+
+        if(!empty($panier[$id])){
+            $panier[$id]++;
+        }
+        
+        $session->set('panier', $panier);
+        return $this->redirectToRoute("cart_pasco_panier");
+
+
+    }    
+
+    /**
+     * @Route("/panier/adpasco/{id}", name="cart_addpasco_panier")
+     */
+    public function addpasco($id, SessionInterface $session){
+
+        $panier= $session->get('panier', []);
+
+
+        if(!empty($panier[$id])){
+            $panier[$id]++;
+        }else{
+         $panier[$id]= 1;   
+        }
+        
+        $session->set('panier', $panier);
+        return $this->redirectToRoute("accueil");
+
+
+    }
+
+    /**
+     * @Route("/panier/removepaco/{id}", name="cart_removepasco")
+     */
+    public function removepasco($id, SessionInterface $session)
+    {
+        $panier = $session->get('panier', []);
+
+        if (!empty($panier[$id])) {
+            unset($panier[$id]);
+        }
+
+        $session->set('panier', $panier);
+
+        return $this->redirectToRoute("cart_pasco_panier");
+    }
+
+    /**
+     * @Route("/panier/remvpascof/{id}", name="cart_rmvpasco_fpanier")
+     */
+    public function rmvpascoFromPanier($id, SessionInterface $session){
+
+        $panier= $session->get('panier', []);
+
+
+        if(!empty($panier[$id])){
+            $panier[$id]--;
+        }
+        if($panier[$id]<=1){
+            unset($panier[$id]);
+        }
+        
+        $session->set('panier', $panier);
+        return $this->redirectToRoute("cart_pasco_panier");
+
+
+    }     
 
 
 
@@ -216,7 +294,6 @@ class PanierController extends AbstractController
 
         $commande = new Commande();
 
-        //dd($repo, $commande); 
 
         foreach ($repo as $value) {
             $commande = new Commande();
@@ -233,15 +310,6 @@ class PanierController extends AbstractController
 
 
         $entityManagerInterface->flush();
-
-        /* $panier = $session->get('panier', []);
-
-        if (!empty($panier[$id])) {
-            unset($panier[$id]);
-        }
-
-        $session->set('panier', $panier);
- */
         $this->addFlash('commandeOk', 'Félicitaions ! Votre commande est validée.');
         return $this->redirectToRoute("panier");
     }
