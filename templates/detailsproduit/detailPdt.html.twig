@@ -34,22 +34,7 @@
                     <p class="Description"> {{produit.description}}</p>
 
                     <form method="get" action="cart.html">
-                          <div class="form-group">
-                            <label>Quantité :</label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control"  id="quantity" name="quantity" min="1" max="100" value="1">
-                                <div class="input-group-append">
-                                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                          
                         <div class="ProduitStock">
                         {% if (produit.stock < 6) %} 
                             <p> Stock disponible :<span style="color:red; font-weight: bold"> {{produit.stock}}</span> </p>
