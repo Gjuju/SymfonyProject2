@@ -39,6 +39,7 @@ footer {
   background-color: #f2f2f2;
   padding: 15px;
   bottom: 0;
+  margin-top: 50px;
 }
 
 
@@ -58,7 +59,7 @@ footer {
 /* Page Catégorie */
 
 .TitreCategorie {
-  margin-top: 30px;
+  margin: 30px 0px 30px 0px;
 }
 
 .TitreCategorie h1 {
