@@ -46,6 +46,12 @@
 										Stock disponible :<span style="color:red; font-weight: bold">
 											{{produit.stock}}</span>
 									</p>
+                                    {% if (produit.stock > 0) %}
+                                    <p>
+										<span style="color:red; font-weight: bold">
+											Dépéchez vous de commander</span>
+									</p>
+                                    {% endif %}
 								{% else %}
 									<p>
 										Stock disponible :<span style="color:green; font-weight: bold">
