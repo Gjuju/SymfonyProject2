@@ -10,6 +10,11 @@
   <div class="bg-light p-3">
     <h1> Votre Panier </h1>
   </div>
+  {% for message in app.flashes('stock') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
 {% for message in app.flashes('stock') %}
     <div class="alert alert-danger">
         {{ message }}
