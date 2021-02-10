@@ -1,67 +1,87 @@
 {% extends 'base.html.twig' %}
 
 
-
-{% block title %}Détail produit{% endblock %}
+{% block title %}Détail produit
+{% endblock %}
 
 {% block body %}
 
-    <div class="TitrePageProduit">
-            <h1>Détails du produit</h1>
-    </div>
+	<div class="TitrePageProduit">
+		<h1>Détails du produit</h1>
+	</div>
 
-<div class="container">
-    <div class="row">
-        <!-- Image -->
-        <div class="col-12 col-lg-6 add_to_cart_block">
-            <div class="card bg-light mb-3" id="BlocProduitPageDetails">
-                <div class="card-body" id="CentragePhoto">
-                   <img src="{{ produit.photo }}" alt="photo {{produit.nom}}">
-                   
-                </div>
-            </div>
-        </div>
+	<div class="container">
+		<div
+			class="row">
+			<!-- Image -->
+			<div class="col-12 col-lg-6 add_to_cart_block">
+				<div class="card bg-light mb-3" id="BlocProduitPageDetails">
+					<div class="card-body" id="CentragePhoto">
+						<img src="{{ produit.photo }}" alt="photo {{produit.nom}}">
 
-        <!-- Add to cart -->
-        <div class="col-12 col-lg-6 add_to_cart_block">
-            <div class="card bg-light mb-3" id="BlocProduitPageDetails">
-                <div class="card-body">
-                                <h1 class="TitrePageProduit"> {{produit.nom}}</h1>
+					</div>
+				</div>
+			</div>
 
-                    <p class="price"> {{produit.prix}} €</p>
+			<!-- Add to cart -->
+			<div class="col-12 col-lg-6 add_to_cart_block">
+				<div class="card bg-light mb-3" id="BlocProduitPageDetails">
+					<div class="card-body">
+						<h1 class="TitrePageProduit">
+							{{produit.nom}}</h1>
 
-                    <label>Description :</label>
-                    <p class="Description"> {{produit.description}}</p>
+						<p class="price">
+							{{produit.prix}}
+							€</p>
 
-                    <form method="get" action="cart.html">
-                          
-                        <div class="ProduitStock">
-                        {% if (produit.stock < 6) %} 
-                            <p> Stock disponible :<span style="color:red; font-weight: bold"> {{produit.stock}}</span> </p>
-                        {% else %}
-                            <p> Stock disponible :<span style="color:green; font-weight: bold"> {{produit.stock}}</span> </p>
-                        {% endif %}
-                    </div>
-                       <button type="button" class="btn btn-success" id="BoutonAjoutPanier">
-              <a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
-                <i class="fa fa-cart-plus mr-2" style="color:white"></i>
-              </button>
-                   </div>
-                        
-                    </form>
-                    <div class="product_rassurance">
-                        <ul class="list-inline">
-                            <li class="list-inline-item"><i class="fa fa-truck fa-2x"></i><br/>Livraison Rapide</li>
-                            <li class="list-inline-item"><i class="fa fa-credit-card fa-2x"></i><br/>Paiement sécurisé</li>
-                            <li class="list-inline-item"><i class="fa fa-phone fa-2x"></i><br/>+33 1 23 45 67 89</li>
-                        </ul>
-                    </div>
-                   
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+						<label>Description :</label>
+						<p class="Description">
+							{{produit.description}}</p>
 
-{% endblock %}
+						<form method="get" action="cart.html">
+
+							<div class="ProduitStock">
+								{% if (produit.stock < 6) %}
+									<p>
+										Stock disponible :<span style="color:red; font-weight: bold">
+											{{produit.stock}}</span>
+									</p>
+								{% else %}
+									<p>
+										Stock disponible :<span style="color:green; font-weight: bold">
+											{{produit.stock}}</span>
+									</p>
+								{% endif %}
+							</div>
+							{% if (produit.stock < 1) %}
+								<button type="button" class="btn btn-secondary" id="BoutonAjoutPanier">
+									<a href="" class="card-link">En rupture</a>
+									<i class="fa fa-cart-plus mr-2" style="color:white"></i>
+								</button>
+							{% else %}
+								<button type="button" class="btn btn-success" id="BoutonAjoutPanier">
+									<a href="{{ path('cart_add', {'id': produit.id }) }}" class="card-link">Ajouter au panier</a>
+									<i class="fa fa-cart-plus mr-2" style="color:white"></i>
+								</button>
+							{% endif %}
+
+						</div>
+
+					</form>
+					<div class="product_rassurance">
+						<ul class="list-inline">
+							<li class="list-inline-item">
+								<i class="fa fa-truck fa-2x"></i><br/>Livraison Rapide</li>
+							<li class="list-inline-item">
+								<i class="fa fa-credit-card fa-2x"></i><br/>Paiement sécurisé</li>
+							<li class="list-inline-item">
+								<i class="fa fa-phone fa-2x"></i><br/>+33 1 23 45 67 89</li>
+						</ul>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>{% endblock %}
