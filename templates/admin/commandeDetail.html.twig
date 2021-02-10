@@ -6,19 +6,30 @@
 
 {% block body %}
 	<div class="container">
-		<div class="bg-light p-3">
-			<h1>
-				Détails de la commande numero : {{idcommande}} </h1>
-			<div class="text-right">
-				<h1>{{utilisateur.username}}</h1>
-				<h4>{{utilisateur.address}}</h4>
-				<h4>{{utilisateur.phonenumber}}</h4>
-				<h4>{{utilisateur.email}}</h4>
+		<div class="bg-light p-3  mt-3">
+			<h2>
+				Détails de la commande numero :
+				{{idcommande}}
+			</h2>
+			<div class='row  mt-3'>
+				<div class='col-8 text-right'>
+					<h3>Identité :</h3>
+					<h5>Adresse :</h5>
+					<h5>Tel :</h5>
+					<h5>E-mail:</h5>
+				</div>
+
+				<div class="col-4">
+					<h3>{{utilisateur.firstName}} {{utilisateur.lastName}}</h3>
+					<h5>{{utilisateur.address}}</h5>
+					<h5>{{utilisateur.phonenumber}}</h5>
+					<h5>{{utilisateur.email}}</h5>
+				</div>
 			</div>
 		</div>
 
 		{% if commande | length > 0 %}
-			<table class='table'>
+			<table class='table  mt-3'>
 				<thead>
 					<tr>
 						<th>Produit</th>

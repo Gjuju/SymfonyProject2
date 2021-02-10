@@ -10,6 +10,11 @@
   <div class="bg-light p-3">
     <h1> Votre Panier </h1>
   </div>
+  {% for message in app.flashes('stock') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
 {% for message in app.flashes('stock') %}
     <div class="alert alert-danger">
         {{ message }}
@@ -58,7 +63,7 @@
       </tfoot>
     </table>
     <div class="text-center">
-    <a href={{path('app_register')}} class="btn btn-success">Valider la commande</a>
+    <a href={{path('app_login')}} class="btn btn-success">Valider la commande</a>
     </div>
   {% else %}
     <p>Surprise, c'est vide !</p>

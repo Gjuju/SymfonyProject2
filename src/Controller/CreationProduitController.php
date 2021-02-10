@@ -27,7 +27,7 @@ class CreationProduitController extends AbstractController
 
             $entityManager->persist($produit);
             $entityManager->flush();
-
+            return $this->redirectToRoute("produits_admin");
            /*  return new Response ('Produit ajouté !'); */
         }
 
@@ -52,7 +52,7 @@ class CreationProduitController extends AbstractController
 
             $entityManager->persist($produit);
             $entityManager->flush();
-
+            return $this->redirectToRoute("produits_admin");
         }
 
         return $this->render('creation_produit/index.html.twig', [

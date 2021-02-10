@@ -157,9 +157,13 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/adpascof/{id}", name="cart_addpasco_fpanier")
      */
-    public function addpascoFromPanier($id, SessionInterface $session){
+    public function addpascoFromPanier($id, SessionInterface $session, Produit $produit){
 
         $panier= $session->get('panier', []);
+        if ($produit->getStock() <= $panier[$id]) {
+            $this->addFlash('stock', 'Impossible de rajouter l\'article, il n\'y en a plus en stock');
+            return $this->redirectToRoute("cart_pasco_panier");
+        }
 
 
         if(!empty($panier[$id])){

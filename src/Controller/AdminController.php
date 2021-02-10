@@ -60,12 +60,12 @@ class AdminController extends AbstractController
         $offset = max(0, $request->query->getInt('offset', 0));
         $paginator = $commandeRepository->getUserCommandePaginator($offset, $id);
 
-        //dd($paginator);
         $array = [];
         foreach ($paginator as $value) {
             array_push($array, $value);
         }
 
+        //dd($paginator, $array);
 
         return $this->render('admin/commandes_user.html.twig', [
             'commandes' => $paginator
@@ -87,8 +87,6 @@ class AdminController extends AbstractController
 
         //dd($paginator);
         $total = 0;
-
-
         foreach ($paginator as $value) {
             $total += $value->getProduitPrix() * $value->getProduitQuantite();
             //$user = $value->getUtilisateur();
