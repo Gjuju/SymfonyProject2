@@ -7,8 +7,10 @@
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Créez un compte</h1>
-
+<div class="container">
+    <h1 class="text-center mt-3 mb-3">Créez un compte</h1>
+    <div class="text-right">
     {{ form(registrationForm) }}
-
+    </div>
+</div>
 {% endblock %}
